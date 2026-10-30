@@ -1,0 +1,131 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy Hackers-Den to GitHub Pages
+
+on:
+  # Only run after the Update workflow completes successfully
+  workflow_run:
+    workflows: ["Update Hackers Den"]
+    branches: ["main"]
+    types:
+      - completed
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    # Only run this job if the Update workflow succeeded or it was manually triggered
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main  # Ensure we're using the latest content from main branch
+      
+      # Run the update_feed.sh script to ensure the dist directory is properly prepared with Matrix theme
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      - name: Verify backup theme files exist
+        run: |
+          # Ensure we have all the necessary Matrix theme files
+          echo "🔍 Checking for Matrix theme files..."
+          mkdir -p matrix-theme-backup/css matrix-theme-backup/js
+          
+          # Check if any of our theme files are missing
+          if [ ! -f "matrix-theme-backup/css/matrix.css" ] || [ ! -f "matrix-theme-backup/css/custom-matrix.css" ] || [ ! -f "matrix-theme-backup/js/matrix-effects.js" ]; then
+            echo "⚠️ Some Matrix theme files are missing, creating them from defaults..."
+            
+            # Create default theme files if needed (simplified versions)
+            if [ ! -f "matrix-theme-backup/css/matrix.css" ]; then
+              echo "/* Default Matrix CSS - Will be replaced with proper version */" > matrix-theme-backup/css/matrix.css
+            fi
+            
+            if [ ! -f "matrix-theme-backup/css/custom-matrix.css" ]; then
+              echo "/* Default Custom Matrix CSS - Will be replaced with proper version */" > matrix-theme-backup/css/custom-matrix.css
+            fi
+            
+            if [ ! -f "matrix-theme-backup/js/matrix-effects.js" ]; then
+              echo "/* Default Matrix JS - Will be replaced with proper version */" > matrix-theme-backup/js/matrix-effects.js
+            fi
+          else
+            echo "✅ Matrix theme files found"
+          fi
+          
+          ls -la matrix-theme-backup/css/
+          ls -la matrix-theme-backup/js/
+      
+      - name: Execute update_feed.sh to generate Matrix-themed site
+        run: |
+          echo "🔄 Running update_feed.sh to generate Matrix-themed site..."
+          chmod +x ./update_feed.sh
+          ./update_feed.sh
+          
+      - name: Verify dist directory structure
+        run: |
+          if [ -d "./dist" ]; then
+            echo "✅ Found dist directory for deployment"
+            echo "📁 Directory structure:"
+            find ./dist -type f | sort
+            
+            echo "📄 Checking key files:"
+            if [ -f "./dist/index.html" ]; then echo "✅ index.html exists"; else echo "❌ index.html missing"; fi
+            if [ -f "./dist/static/css/matrix.css" ]; then echo "✅ matrix.css exists"; else echo "❌ matrix.css missing"; fi
+            if [ -f "./dist/static/css/custom-matrix.css" ]; then echo "✅ custom-matrix.css exists"; else echo "❌ custom-matrix.css missing"; fi
+            if [ -f "./dist/static/js/matrix-effects.js" ]; then echo "✅ matrix-effects.js exists"; else echo "❌ matrix-effects.js missing"; fi
+            
+            echo "🔍 Checking for Matrix theme elements in HTML:"
+            grep -q "matrix.css" ./dist/index.html && echo "✅ matrix.css reference found in HTML" || echo "❌ matrix.css reference missing"
+            grep -q "matrix-effects.js" ./dist/index.html && echo "✅ matrix-effects.js reference found in HTML" || echo "❌ matrix-effects.js reference missing"
+            grep -q "matrix-bg" ./dist/index.html && echo "✅ matrix-bg element found in HTML" || echo "❌ matrix-bg element missing"
+          else
+            echo "❌ dist directory not found! Make sure the update workflow has run successfully."
+            exit 1
+          fi
+          
+      - name: Create .nojekyll file
+        run: |
+          # Create a .nojekyll file in the dist directory to prevent Jekyll processing
+          touch ./dist/.nojekyll
+          echo "✅ Created .nojekyll file to prevent Jekyll processing"
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload only the dist directory containing our Matrix-themed RSS feed
+          path: './dist'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      
+      - name: Verify deployment
+        run: |
+          echo "🚀 Hackers-Den deployed successfully! Your site is now available at: ${{ steps.deployment.outputs.page_url }}"
+          # Add timestamp to easily track deployments in logs
+          echo "📅 Deployed at: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "🔒 MATRIX THEME DEPLOYMENT COMPLETE 🔒"

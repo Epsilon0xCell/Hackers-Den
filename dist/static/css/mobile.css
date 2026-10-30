@@ -1,0 +1,18 @@
+.title {
+  font-size: 3rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+}
+
+.article__header-img > a > img {
+  height: var(--height-img-mobile);
+  object-position: top;
+  object-fit: cover;
+}
+
+.article__date {
+  font-size: 0.9rem;
+  color: var(--color__nord-medium);
+}

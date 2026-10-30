@@ -1,0 +1,339 @@
+/* Matrix Rain Effect */
+@keyframes matrix-rain {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+  }
+  50% {
+    text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000;
+  }
+  100% {
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+  }
+}
+
+.matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  background-color: rgba(10, 0, 0, 0.93);
+}
+
+.matrix-rain {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.matrix-drop {
+  position: absolute;
+  color: #ff0000;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px #ff0000;
+  opacity: 0;
+  animation: matrix-rain 8s linear infinite;
+}
+
+/* Main title styling */
+.title {
+  animation: flicker 3s infinite;
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+  margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+  color: #fff;
+}
+
+/* Subtitle styling */
+.subtitle {
+  margin-top: 0.5rem;
+}
+
+.subtitle__separator {
+  color: #ff0000;
+  animation: pulse 2s infinite;
+  font-weight: bold;
+  padding: 0 0.5rem;
+}
+
+.subtitle__text {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  color: #ff3333;
+}
+
+/* Article styling */
+.article__content-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.article__header-img {
+  flex: 0 0 180px;
+  max-width: 180px;
+  margin: 0;
+}
+
+.article__header-img img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid #ff0000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  filter: brightness(1.1);
+}
+
+.article__titles {
+  flex: 1;
+  min-width: 200px;
+}
+
+.article__title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.article__title a {
+  color: #ff3333;
+  text-shadow: 0 0 2px #ff0000;
+  transition: all 0.3s ease;
+}
+
+.article__title a:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000;
+}
+
+.article__feed {
+  font-size: 0.85rem;
+  margin: 0;
+  font-weight: normal;
+}
+
+.article__feed a {
+  color: #ffaaaa;
+  text-decoration: none;
+}
+
+.article__feed a:hover {
+  text-decoration: underline;
+}
+
+.article__date {
+  color: #ffaaaa;
+  margin-left: 0.5rem;
+}
+
+.article__header {
+  border: 1px solid #ff0000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+  position: relative;
+  background-color: rgba(20, 0, 0, 0.7);
+  overflow: hidden;
+}
+
+.article__header:hover {
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  transform: translateY(-5px);
+}
+
+/* Terminal Styling */
+.terminal {
+  background-color: rgba(10, 0, 0, 0.8);
+  padding: 0;
+  border-radius: 5px;
+}
+
+.terminal__header {
+  border-bottom: 1px solid #ff0000;
+  padding: 8px 12px;
+  margin-bottom: 0;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  align-items: center;
+  background-color: rgba(30, 0, 0, 0.7);
+}
+
+.terminal__prompt {
+  color: #ff0000;
+  font-family: 'Courier New', monospace;
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+.terminal__date {
+  margin-left: auto;
+  color: #ff0000;
+  font-size: 0.8rem;
+  font-family: 'Courier New', monospace;
+}
+
+/* Footer styling */
+.footer {
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.footer__text {
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.footer__link {
+  color: #ff0000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.footer__link:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #ff0000;
+}
+
+/* Optimized loading for images */
+img {
+  transition: opacity 0.3s ease;
+  filter: brightness(1.1) contrast(1.1);
+}
+
+img.lazy-load {
+  opacity: 0;
+}
+
+img.lazy-loaded {
+  opacity: 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #100000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ff0000;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ff3333;
+}
+
+/* Surveillance scanline */
+.surveillance-scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+  opacity: 0.7;
+  z-index: 9999;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% { top: -5px; }
+  100% { top: 100%; }
+}
+
+/* Ensure content is brighter and more visible */
+body {
+  color: #ffcccc;
+  background-color: #0a0000;
+}
+
+.container {
+  background-color: rgba(15, 0, 0, 0.85);
+  border: 1px solid rgba(200, 0, 0, 0.15);
+  box-shadow: 0 0 30px rgba(40, 0, 0, 0.4), inset 0 0 30px rgba(30, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* Binary flash effects in the background */
+.matrix-bg::after {
+  content: "1 0 1";
+  position: absolute;
+  color: rgba(255, 0, 0, 0.2);
+  font-size: 20rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: binary-flash 15s ease-in-out infinite;
+  font-family: monospace;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@keyframes binary-flash {
+  0%, 94%, 100% { opacity: 0; }
+  95%, 97% { opacity: 0.1; }
+}
+
+/* Confidential watermark */
+.confidential-watermark {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: 10vw;
+  color: rgba(255, 0, 0, 0.07);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.2em;
+  z-index: 999;
+  pointer-events: none;
+  user-select: none;
+  text-transform: uppercase;
+  font-weight: 900;
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
+}

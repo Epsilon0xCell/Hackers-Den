@@ -1,0 +1,240 @@
+name: Update Hackers Den
+on:
+  schedule:
+    - cron: "0 3 * * *"  # Run daily at 3 AM for less server load
+  push:
+    branches:
+      - main
+  workflow_dispatch:    # Allow manual triggering
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1  # Fetch all history for proper versioning
+          submodules: false  # Do not attempt to checkout submodules
+      
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      - name: Clean previous builds
+        run: |
+          rm -rf ./dist
+          echo "🧹 Cleaned previous build artifacts"
+      
+      - name: Update Hackers-Den branding
+        run: |
+          echo "🔄 Updating Hackers-Den branding throughout the project..."
+          
+          # Update config.yaml to use our dark theme and Hackers-Den branding
+          cat > ./config.yaml << 'EOL'
+          # Hackers-Den - Matrix-themed RSS feed
+          title: "Hackers-Den"
+
+          # Use the built-in dark theme (we'll apply Matrix styling after generation)
+          theme: dark
+
+          # Update frequency for fresher content
+          edition: daily
+
+          # Cybersecurity and hacking-focused feeds
+          feeds:
+            # Current feeds
+            - https://kill-the-newsletter.com/feeds/oozrzxtg7nxieettty99.xml
+            - https://kill-the-newsletter.com/feeds/nzaowh59yejdvcx52y6d.xml
+            - https://kill-the-newsletter.com/feeds/yz1olmn3cz6i3w7v30at.xml
+            - https://isc.sans.edu/dailypodcast.xml
+            - https://feeds.megaphone.fm/hacking-humans
+            - https://podcast.darknetdiaries.com
+            
+            # Additional top security feeds
+            - https://krebsonsecurity.com/feed/
+            - https://feeds.feedburner.com/TheHackersNews
+            - https://www.schneier.com/blog/atom.xml
+            - https://threatpost.com/feed/
+            - https://www.zdnet.com/topic/security/rss.xml
+            - https://nakedsecurity.sophos.com/feed
+            - https://www.securityweek.com/feed/
+            - https://www.darkreading.com/rss.xml
+            - https://www.bleepingcomputer.com/feed/
+            - https://www.helpnetsecurity.com/feed/
+          EOL
+          
+          # Update README.md with Hackers-Den branding
+          cat > ./README.md << 'EOL'
+          # Hackers-Den
+
+          A Matrix-themed cybersecurity RSS feed updated daily with GitHub Actions
+
+          ## About
+          
+          Hackers-Den is a customized implementation of the RSSpaper project, featuring:
+          
+          - Matrix-inspired hacker aesthetic with green text on dark background
+          - Animated Matrix "digital rain" effect
+          - Terminal-style article displays
+          - Daily updates with the latest cybersecurity and hacking news
+          - PWA (Progressive Web App) support for offline reading
+          
+          ## Credits
+          
+          Based on:
+          - [RSSPAPER](https://github.com/tanrax/RSSPAPER) - The core RSS feed generator
+          - [GitHub Pages](https://pages.github.com/) - For hosting the static site
+          
+          ## Features
+          
+          - Daily updates via GitHub Actions
+          - Mobile-responsive design
+          - Fast loading and performance optimizations
+          - Matrix-themed animations and visual effects
+          
+          ## License
+          
+          This project is licensed under the terms included in the LICENSE file.
+          
+          ## Author
+          
+          Created and maintained by CY83R-3X71NC710N
+          EOL
+          
+          # Update manifest.json for Hackers-Den PWA
+          cat > ./manifest.json << 'EOL'
+          {
+            "name": "Hackers-Den",
+            "short_name": "Hackers-Den",
+            "description": "Matrix-themed cybersecurity and hacking news aggregator",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#000000",
+            "theme_color": "#00FF00",
+            "icons": [
+              {
+                "src": "static/img/icons/icon-72x72.png",
+                "sizes": "72x72",
+                "type": "image/png",
+                "purpose": "any maskable"
+              },
+              {
+                "src": "static/img/icons/icon-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "any maskable"
+              },
+              {
+                "src": "static/img/icons/icon-512x512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any maskable"
+              }
+            ]
+          }
+          EOL
+          
+          echo "✅ Hackers-Den branding updated successfully"
+      
+      - name: Generate Hackers-Den RSS newspaper
+        run: |
+          echo "🔄 Generating Hackers-Den RSS feed using existing JAR..."
+          
+          # Use the existing JAR file in the repository
+          java -jar ./rsspaper-1.2.4-standalone.jar
+          
+          echo "✅ RSS feed generated successfully"
+      
+      - name: Apply additional Hackers-Den branding
+        run: |
+          echo "🔄 Applying additional Hackers-Den branding..."
+          
+          # Create service worker for PWA support
+          cat > ./dist/static/service-worker.js << 'EOL'
+          // Hackers-Den Service Worker
+          const CACHE_NAME = 'hackers-den-cache-v1';
+          const urlsToCache = [
+            '/',
+            '/index.html',
+            '/static/css/main.css',
+            '/static/css/desktop.css',
+            '/static/css/mobile.css',
+            '/static/css/normalize.css',
+            '/static/fonts/matrix-code.ttf',
+            '/static/img/newsreader-not-cover.png'
+          ];
+
+          self.addEventListener('install', event => {
+            event.waitUntil(
+              caches.open(CACHE_NAME)
+                .then(cache => {
+                  console.log('Opened cache');
+                  return cache.addAll(urlsToCache);
+                })
+            );
+          });
+
+          self.addEventListener('fetch', event => {
+            event.respondWith(
+              caches.match(event.request)
+                .then(response => {
+                  if (response) {
+                    return response;
+                  }
+                  return fetch(event.request).then(
+                    response => {
+                      if(!response || response.status !== 200 || response.type !== 'basic') {
+                        return response;
+                      }
+                      const responseToCache = response.clone();
+                      caches.open(CACHE_NAME)
+                        .then(cache => {
+                          cache.put(event.request, responseToCache);
+                        });
+                      return response;
+                    }
+                  );
+                })
+            );
+          });
+          EOL
+          
+          # Update meta description and title for better SEO and consistent branding
+          sed -i 's|<meta name="description" content="My static news generator">|<meta name="description" content="Hackers-Den - Matrix-themed cybersecurity and hacking news aggregator">|' ./dist/index.html
+          sed -i 's|<meta name="generator" content="RSSPAPER">|<meta name="generator" content="Hackers-Den">|' ./dist/index.html
+          
+          # Update the page title in case it's not correctly set
+          sed -i 's|<title>.*</title>|<title>Hackers-Den</title>|' ./dist/index.html
+          
+          # Update the subtitle text to be more Hackers-Den branded
+          sed -i 's|<span class="subtitle__text">Latest Hacking News</span>|<span class="subtitle__text">Cybersecurity Intelligence</span>|' ./dist/index.html || echo "Could not update subtitle text"
+          
+          # Add Hackers-Den manifest to the dist directory
+          cp ./manifest.json ./dist/
+          
+          # Create .nojekyll file to prevent GitHub Pages from using Jekyll processing
+          touch ./dist/.nojekyll
+          echo "✅ Created .nojekyll file to prevent GitHub Pages from processing with Jekyll"
+          
+          echo "✅ Additional Hackers-Den branding applied successfully"
+      
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # Stage changes
+          git add dist/** 
+          git add README.md config.yaml manifest.json
+          
+          # Commit with conditional message
+          git commit -m "🔒 Hackers-Den: Daily update $(date +%Y-%m-%d)" || echo "No changes to commit"
+          
+          # Push changes
+          git push
