@@ -62,8 +62,11 @@ if [ ! -d "dist/static/fonts/source-code-pro" ]; then
   mkdir -p dist/static/fonts/source-code-pro
   
   if [ -f "source-code-pro.zip" ]; then
-    unzip -o source-code-pro.zip -d dist/static/fonts/source-code-pro
-    echo "[+] Font installed"
+    if unzip -o source-code-pro.zip -d dist/static/fonts/source-code-pro; then
+      echo "[+] Font installed"
+    else
+      echo "[!] Warning: source-code-pro.zip could not be extracted. Using web font instead."
+    fi
   else
     echo "[!] Warning: source-code-pro.zip not found. Using web font instead."
   fi
@@ -105,9 +108,10 @@ sed -i 's|<header class="article__header">|<header class="article__header termin
 
 # Fix article structure
 echo "[+] Restructuring articles for terminal style..."
-# Fix article header images - replace <p> with <div>
-sed -i 's|<p class="article__header-img">|<div class="article__header-img">|g' dist/index.html
-sed -i 's|</p>|</div>|g' dist/index.html
+# Fix article header images - replace only the header image <p> element
+# with a <div>, including its own closing tag. A global </p> replacement
+# would corrupt every paragraph in the generated articles.
+perl -0777 -i -pe 's|<p class="article__header-img">(.*?)</p>|<div class="article__header-img">$1</div>|gs' dist/index.html
 
 # Add terminal header to each article
 sed -i '/<header class="article__header terminal">/a \                        <div class="terminal__header">\n                            <span class="terminal__prompt">root@hackers-den:~$ cat article</span>\n                            <span class="terminal__date"></span>\n                        </div>\n                        <div class="article__content-wrapper">' dist/index.html
@@ -138,15 +142,10 @@ fi
 
 # Add article numbers as custom properties for staggered animations
 echo "[+] Adding article indexing for animations..."
-sed -i 's|<article class="feed__article">|<article class="feed__article" style="--article-index: 0">|' dist/index.html
-COUNTER=1
-while read -r line; do
-  if [[ $line == *"<article class="* ]]; then
-    # Replace with incrementing counter
-    sed -i "0,/<article class=\"feed__article\" style=\"--article-index: 0\">/s//<article class=\"feed__article\" style=\"--article-index: $COUNTER\">/" dist/index.html
-    ((COUNTER++))
-  fi
-done < dist/index.html
+# The generator emits <article class="feed__article article">, and the file
+# must not be edited with sed while a shell loop is still reading it, so the
+# numbering is done in a single perl pass in document order.
+perl -i -pe 'BEGIN { $i = 0 } s|<article class="feed__article article">|"<article class=\"feed__article article\" style=\"--article-index: " . $i++ . "\">" |ge' dist/index.html
 
 # Add PWA manifest link
 echo "[+] Adding PWA support..."
@@ -170,6 +169,11 @@ cat >> dist/index.html << 'MATRIX_END'
         document.addEventListener("DOMContentLoaded", function() {
             // Initialize Matrix theme
             console.log("🔒 Initializing Hackers-Den Matrix theme...");
+            // Register the service worker from the site root so its scope
+            // covers the whole site (a worker under static/ cannot).
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("service-worker.js");
+            }
         });
     </script>
 </body>

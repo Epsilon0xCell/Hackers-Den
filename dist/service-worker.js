@@ -7,7 +7,7 @@ const urlsToCache = [
   '/static/css/desktop.css',
   '/static/css/mobile.css',
   '/static/css/normalize.css',
-  '/static/fonts/matrix-code.ttf',
+  '/static/fonts/Newsreader-VariableFont_opsz,wght.woff2',
   '/static/img/newsreader-not-cover.png'
 ];
 
