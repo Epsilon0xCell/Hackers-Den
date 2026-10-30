@@ -1,3 +1,11 @@
+# I keep this file as the working notes behind the feed list in
+# config.yaml. The pattern in the first lines is the one I used for
+# newsletters that have no RSS of their own: I subscribed through
+# kill-the-newsletter, which gave me a feed address for an inbox, and
+# those converted addresses are the first three feeds in config.yaml.
+# One line below is commented out with my reason written on it. I
+# leave a dropped source in the file with its reason instead of
+# deleting it, so I do not test the same source again later.
 https://tldr.tech/infosec + https://kill-the-newsletter.com/ (Daily Summary)
 https://tldrsec.com/ (Weekly Summary)
 https://buttondown.com/cyberfacts (Handpicked Readings)

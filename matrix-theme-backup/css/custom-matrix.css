@@ -1,3 +1,12 @@
+/* This is the canonical custom-matrix.css, the second sheet
+ * update_feed.sh copies into dist/ after matrix.css. The load order
+ * in the page puts this sheet after matrix.css, so where the two set
+ * the same property at the same strength, this one wins. The @import
+ * below pulls Source Code Pro from Google Fonts at page load, which
+ * is a second font path next to the stylesheet link update_feed.sh
+ * adds to the page: if the import fails, the link can still load it,
+ * and if both fail the pages fall back to a plain monospace.
+ */
 /* Custom Matrix Theme with Red Hacker Style
  * FICTIONAL THEME - For entertainment purposes only
  * This theme is not affiliated with any government agency

@@ -1,4 +1,9 @@
 # Simple workflow for deploying static content to GitHub Pages
+# I am the second half of the pipeline. I run only after the update
+# workflow finishes, or by hand. I do not commit anything: I check out
+# the newspaper the update workflow committed, run update_feed.sh to
+# apply the Matrix theme to that checkout, and deploy the result. The
+# themed copy exists only in the deployed site, never in the repo.
 name: Deploy Hackers-Den to GitHub Pages
 
 on:
@@ -47,6 +52,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       
+      # This check tests that the three theme files exist, and if one is
+      # missing it writes a one line placeholder and carries on. The
+      # verify step further down also only tests existence, so a missing
+      # theme file would deploy as a placeholder sheet or script with
+      # every check green. Existence is not the same as the real theme,
+      # and nothing in this workflow can tell the difference.
       - name: Verify backup theme files exist
         run: |
           # Ensure we have all the necessary Matrix theme files
@@ -76,12 +87,22 @@ jobs:
           ls -la matrix-theme-backup/css/
           ls -la matrix-theme-backup/js/
       
+      # Running update_feed.sh here is why a Pages deploy workflow sets
+      # up Java at all: the script runs the JAR again as its first step,
+      # so the site is generated a second time in this workflow, against
+      # the live feeds, and can differ from the copy the update workflow
+      # committed earlier that day if a feed changed in between.
       - name: Execute update_feed.sh to generate Matrix-themed site
         run: |
           echo "🔄 Running update_feed.sh to generate Matrix-themed site..."
           chmod +x ./update_feed.sh
           ./update_feed.sh
           
+      # These checks grep for three strings and test that four files
+      # exist. They pass on a page whose article markup came out wrong,
+      # which is why I also count tags in the output by hand when I
+      # change update_feed.sh. A green run here means the theme pieces
+      # are present, not that the page is well formed.
       - name: Verify dist directory structure
         run: |
           if [ -d "./dist" ]; then

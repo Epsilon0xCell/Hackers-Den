@@ -1,3 +1,12 @@
+/* This is the red copy of the small matrix.css, kept with the themes
+ * template. It is not the sheet the build copies: update_feed.sh
+ * takes matrix-theme-backup/css/matrix.css, which is a larger sheet
+ * with more in it. There is a third copy of this small sheet at
+ * matrix-theme-backup/matrix.css, outside the css folder the script
+ * reads, and that one is green where this one is red: the same rules
+ * with #0f0 in the green copy and #ff0000 here. Three copies, two
+ * colors, and only the backup css folder one is ever built.
+ */
 /* Matrix Rain Effect */
 @keyframes matrix-rain {
   0% {

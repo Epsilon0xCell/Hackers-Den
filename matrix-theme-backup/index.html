@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!-- I keep this file as a snapshot, not a template. There are no
+     template marks in it: the three articles below are finished HTML
+     with real links and dates from 13 and 14 April 2025, and parts of
+     two headlines carry redacted spans I placed inside the link text
+     by hand. Nothing in the build uses this file. update_feed.sh
+     copies only the css and js folders out of matrix-theme-backup/,
+     never this page, so it survives as a picture of how the themed
+     site looked, not as a part that produces it. -->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -7,6 +15,11 @@
     <meta name="generator" content="Hackers-Den">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <link rel="icon" type="image/png" href="static/img/icons/favicon.png">
+    <!-- This page carries two theme-color values, this one and a
+         second one further down set to #003366. The other templates
+         in this repo repeat the tag too, with the same value twice.
+         Here the values disagree, and which one a browser honors is
+         not something this file decides. -->
     <meta name="theme-color" content="#000033">
     <!-- PWA -->
     <link rel="manifest" href="static/manifest.json" />
@@ -137,6 +150,12 @@
             
         </main>
         
+        <!-- This tracker is static markup with fixed lines. The one in
+             matrix-effects.js is built at runtime with a random IP
+             address and a random file count, and it refuses to insert
+             itself if a page already carries an .access-tracker. If
+             this page loaded that script, this static block is the one
+             that would show, exactly because it is already here. -->
         <div class="access-tracker">
             <div class="access-tracker__header">SYSTEM ACTIVITY LOG</div>
             <div class="access-tracker__item">User authenticated</div>
@@ -157,6 +176,11 @@
         </div>
     </footer>
     
+    <!-- The script path is relative to this folder: js/ under
+         matrix-theme-backup/. On the built site the same file is
+         served from static/js/ instead, because update_feed.sh copies
+         it there. The same script, two different addresses, depending
+         on which copy of the page a reader opens. -->
     <!-- Add Matrix Rain Animation -->
     <script src="js/matrix-effects.js"></script>
 </body>

@@ -1,3 +1,11 @@
+/* This is the themes folder copy of custom-matrix.css, and it is not
+ * the one the build uses. update_feed.sh copies the copy in
+ * matrix-theme-backup/css/ into dist/, and nothing in the workflows
+ * or the script reads this folder. The two copies have drifted: this
+ * one is shorter and its header comment does not carry the fictional
+ * theme lines the canonical copy has. I keep it with the template it
+ * belongs to, and I edit the backup copy when I want a change built.
+ */
 /* Custom Matrix Theme with Red Hacker Style
  * Enhanced red hacker aesthetic for Hackers-Den
  */

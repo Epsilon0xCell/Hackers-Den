@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<!-- I keep this file as the Matrix variant of the generator template.
+     It is a template, not a finished page: the double brace marks and
+     the for loop further down are filled in by the RSSpaper JAR when
+     it builds. It is not the template the daily build uses. config.yaml
+     names the built-in dark theme, and nothing in this repo, not the
+     workflows and not update_feed.sh, points the generator at this
+     folder. The built site gets its Matrix look from update_feed.sh
+     editing the dark theme's output instead. I keep this variant
+     because it shows the page as I designed it, with the terminal
+     headers and the content wrapper already in the markup, instead of
+     inserted by sed after generation. -->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -30,6 +41,10 @@
     <link rel="stylesheet" href="static/css/matrix.css">
     <link rel="stylesheet" href="static/css/custom-matrix.css">
     <!-- End CSS -->
+    <!-- I preload the Newsreader font here. This link is also the reason
+         a guard in update_feed.sh would skip its font block on a page
+         built from this template: that guard greps the finished page
+         for the word preload anywhere, and this line already has it. -->
     <!-- Preload Font -->
     <link rel="preload" href="static/fonts/Newsreader-VariableFont_opsz,wght.woff2" as="font" type="font/woff2" crossorigin>
 </head>
@@ -47,6 +62,12 @@
             <!-- Intelligence briefing style header -->
             <div class="document-header">
                 <div class="document-stamp">CONFIDENTIAL</div>
+                <!-- The file number is the build date, stamped by the
+                     template's date filter at generation time. The
+                     backup snapshot page hardcodes a number instead,
+                     and matrix-effects.js writes a random one when it
+                     builds this header at runtime. Three ways to fill
+                     the same slot, and only this one is a real date. -->
                 <div class="document-number">FILE-{{ "now"|date:"Ymd" }}-D</div>
             </div>
             <h1 class="title">{{ title }}</h1>
@@ -58,10 +79,27 @@
                 <article class="feed__article article">
                     <header class="article__header terminal">
                         <div class="terminal__header">
+                            <!-- The prompt counts articles with the loop
+                                 counter, so each article pretends to be a
+                                 different file. On the built site
+                                 update_feed.sh inserts a plainer prompt,
+                                 the same text on every article. -->
                             <span class="terminal__prompt">root@hackers-den:~$ cat intel_{{ forloop.counter }}.dat</span>
+                            <!-- This date span holds the article's real
+                                 published date in this template. That is
+                                 the opposite of the built site, where the
+                                 same class is left empty by update_feed.sh
+                                 and matrix-effects.js fills it with the
+                                 reader's current time. -->
                             <span class="terminal__date">{{ article.published-date-formatter }}</span>
                         </div>
                         <div class="article__content-wrapper">
+                            <!-- The header image sits in a div here from
+                                 the start. The dark template wraps it in a
+                                 p element instead, and the perl replace in
+                                 update_feed.sh exists only to convert that
+                                 p into this same div shape after
+                                 generation. -->
                             <div class="article__header-img">
                                 <a target="_blank" href="{{ article.link }}">
                                     {% if article.cover %}
@@ -95,6 +133,15 @@
         </div>
     </footer>
 
+    <!-- The script below is a second copy of the rain, separate from
+         matrix-theme-backup/js/matrix-effects.js, and the two have
+         drifted apart. This one draws from a katakana character set in
+         Courier New, picks its phrase columns once at setup (5 percent
+         of columns), and rebuilds every drop whenever the window is
+         resized, because its resize handler calls the setup function
+         again. The external file draws from a hacker character set in
+         Source Code Pro, decides phrases per frame, and never rebuilds
+         its drops on resize. Editing one does not change the other. -->
     <!-- Add advanced Matrix Rain Animation -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -299,6 +346,13 @@
             adjustMatrixHeight();
             drawHackerRain();
 
+            // The lazy-load class only pays off if this handler runs
+            // before the image finishes. The images also carry the
+            // loading="lazy" attribute and the theme CSS starts
+            // img.lazy-load at opacity 0 until a lazy-loaded class is
+            // added, so an image that completes from cache before this
+            // listener attaches keeps the hidden style with no handler
+            // left to clear it.
             // Lazy load images
             document.querySelectorAll('img.lazy-load').forEach(img => {
                 img.onload = function() {

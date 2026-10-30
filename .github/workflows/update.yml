@@ -1,3 +1,9 @@
+# I am the daily half of a two workflow pipeline. This workflow
+# regenerates the newspaper and commits it. The deploy workflow
+# (.github/workflows/static.yml) runs after this one succeeds, applies
+# the Matrix theme with update_feed.sh, and publishes dist/ to Pages.
+# The theme is applied there, not here, so the dist/ this workflow
+# commits is the plain generator output.
 name: Update Hackers Den
 on:
   schedule:
@@ -17,7 +23,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1  # Fetch all history for proper versioning
+          fetch-depth: 1  # I fetch a shallow checkout, depth 1. A comment
+          # on this line used to claim it fetched all history. It does not,
+          # and nothing in this workflow reads history, so shallow is fine.
           submodules: false  # Do not attempt to checkout submodules
       
       - name: Setup Java
@@ -26,11 +34,26 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       
+      # Deleting dist/ first means anything in dist/ that the steps below
+      # do not recreate is gone from the commit at the end. The JAR
+      # recreates the newspaper, and a later step recreates the service
+      # worker, the manifest copy, and .nojekyll. The Matrix CSS and JS
+      # are not recreated here at all. They return only when the deploy
+      # workflow runs update_feed.sh, and that workflow does not commit,
+      # so the committed dist/ never carries them.
       - name: Clean previous builds
         run: |
           rm -rf ./dist
           echo "🧹 Cleaned previous build artifacts"
       
+      # The heredocs in this step are the copies that win. This step
+      # rewrites config.yaml, README.md, and manifest.json from the text
+      # below on every run, so an edit I make to those files directly is
+      # overwritten the next time this workflow runs. When I change one
+      # of them, I change the copy here too, in the same commit. That is
+      # why the config and the service worker further down carry the
+      # same comments as the files they write: Comment Wave 7 put them
+      # in both places so the comments survive the rewrite.
       - name: Update Hackers-Den branding
         run: |
           echo "🔄 Updating Hackers-Den branding throughout the project..."
@@ -40,13 +63,24 @@ jobs:
           # Hackers-Den - Matrix-themed RSS feed
           title: "Hackers-Den"
 
-          # Use the built-in dark theme (we'll apply Matrix styling after generation)
+          # I name the built-in dark theme here because the JAR only takes its
+          # own themes. My Matrix styling is not a JAR theme at all: update_feed.sh
+          # applies it to the generated HTML after the JAR has run, which is why
+          # this file says dark while the finished site wears the Matrix CSS.
           theme: dark
 
-          # Update frequency for fresher content
+          # This says daily, and the update workflow also runs daily at 03:00
+          # UTC. The two settings sit in different files and neither reads the
+          # other, so changing one without the other leaves them out of step.
           edition: daily
 
           # Cybersecurity and hacking-focused feeds
+          # The first three feeds are not sites with their own RSS. They are
+          # newsletters I routed through kill-the-newsletter, which turns an
+          # email subscription into a feed URL. site_methods.txt holds the notes
+          # I made when I picked these sources, including one source I dropped.
+          # Nothing in this repo prunes this list, so a feed that dies stays
+          # listed here until I remove it by hand. The list is the record.
           feeds:
             # Current feeds
             - https://kill-the-newsletter.com/feeds/oozrzxtg7nxieettty99.xml
@@ -179,8 +213,29 @@ jobs:
           
           # Create service worker for PWA support
           cat > ./dist/service-worker.js << 'EOL'
+          // I keep this worker at the root of dist/ on purpose. A service
+          // worker can only control pages at or below the folder it is served
+          // from, and an earlier copy of this file sat under dist/static/,
+          // which limited it to that subtree and left the newspaper itself
+          // outside its scope. The registration in the themed page points at
+          // service-worker.js relative to the page, so this file's location
+          // and that registration have to stay in step.
           // Hackers-Den Service Worker
+          // The name below has stayed at v1 since I wrote it. Nothing in this
+          // file deletes old caches: there is no activate handler at all, and
+          // caches.match in the fetch handler searches every cache on the
+          // origin, so entries stored under an older name would still be
+          // served. If I ever change the list below, I have to change this
+          // name too and accept that the old cache stays on readers' machines.
           const CACHE_NAME = 'hackers-den-cache-v1';
+          // I wrote these paths from the domain root. That lines up only if
+          // the site is served from the root of its domain. Served from a
+          // subpath, the way a GitHub Pages project site is, each of these
+          // points outside the site, and the install below fails on them.
+          // The list also has to name files that exist. cache.addAll is all
+          // or nothing: one bad entry rejects the whole install and the
+          // worker never activates. That is how the earlier version of this
+          // list broke, when it named a font file that was never in the repo.
           const urlsToCache = [
             '/',
             '/index.html',
@@ -202,6 +257,12 @@ jobs:
             );
           });
 
+          // The fetch handler serves the cache first and the network second.
+          // A page this worker has cached is served from the cache on every
+          // later visit, and the network copy is never compared, so a reader
+          // can keep seeing a cached newspaper until the cache name changes.
+          // Responses fetched from the network are stored below, which is how
+          // pages beyond the install list get cached at all.
           self.addEventListener('fetch', event => {
             event.respondWith(
               caches.match(event.request)
@@ -214,6 +275,12 @@ jobs:
                       if(!response || response.status !== 200 || response.type !== 'basic') {
                         return response;
                       }
+                      // The clone matters: a response body can be read once,
+                      // and the original is returned to the page below. Without
+                      // the clone, storing it and returning it would fight over
+                      // the same body. The put itself is not returned or
+                      // awaited, so the fetch finishes without waiting for the
+                      // cache write, and nothing here reports it if it fails.
                       const responseToCache = response.clone();
                       caches.open(CACHE_NAME)
                         .then(cache => {
@@ -246,6 +313,12 @@ jobs:
           
           echo "✅ Additional Hackers-Den branding applied successfully"
       
+      # The push at the end uses the workflow's own token. Pushes made
+      # with that token do not start new workflow runs, which is what
+      # stops this push triggered workflow from retriggering itself with
+      # its own daily commit. The commit line ends with an or echo, so a
+      # commit that fails for a reason other than no changes also prints
+      # No changes to commit and the step still passes.
       - name: Commit and push changes
         run: |
           git config --global user.name "GitHub Actions"

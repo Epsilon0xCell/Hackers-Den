@@ -1,3 +1,11 @@
+/* This small matrix.css sits at the top of the backup folder, outside
+ * the css subfolder, and that placement is why the build never sees
+ * it: update_feed.sh reads and writes only matrix-theme-backup/css/.
+ * It is the green version of the small sheet, #0f0 where the copy in
+ * themes/matrix/ is red. I keep it as the record of the green scheme
+ * the site copy still describes, while the sheets that actually build
+ * paint the rain and the headings red.
+ */
 /* Matrix Rain Effect */
 @keyframes matrix-rain {
   0% {

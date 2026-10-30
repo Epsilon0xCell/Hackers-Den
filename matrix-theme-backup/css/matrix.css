@@ -1,3 +1,12 @@
+/* I treat this copy as the canonical matrix.css. update_feed.sh copies
+ * this file into dist/static/css/ on every build, over whatever the
+ * generator left there, and the deploy workflow checks this path by
+ * name. Edits to the copy in dist/ do not survive a build. Edits here
+ * do. This is also the sheet that reads the --article-index property
+ * update_feed.sh writes inline on each article: the .feed__article
+ * rule near the end sets animation-delay from it at 0.15 seconds per
+ * index, so article 61 waits about 9 seconds before its fade starts.
+ */
 /* Enhanced Matrix Rain Effect with Advanced Animations */
 @keyframes matrix-rain {
   0% {

@@ -1,10 +1,21 @@
 /**
- * Enhanced Matrix Digital Rain Animation with Red Hacker Theme
- * For Hackers-Den cybersecurity news aggregator
- * Note: This is fictional and for entertainment purposes only
+ * I wrote this file as the runtime half of the theme. update_feed.sh
+ * copies it into dist/static/js/ and the themed page loads it there.
+ * The name says Matrix and most of the site copy says green, but the
+ * colors I actually paint with in this file are red: the rain builds
+ * its color from a red channel of 200 or more with green and blue
+ * usually at 0, and addDynamicStyles() below sets a variable named
+ * --terminal-green to #cc0000, which is red. I keep the names as they
+ * are and note the mismatch here instead of pretending they agree.
+ * The surveillance pieces are decoration. The disclaimer function at
+ * the bottom of the startup list says so on the page itself.
  */
 
-// Wait for the DOM to be fully loaded
+// Everything starts on DOMContentLoaded, in the order written here.
+// The order matters twice: updateTerminalDates() can only fill the
+// terminal date spans that update_feed.sh inserted if they are in the
+// DOM already, and addDynamicStyles() runs last, so the style element
+// it appends lands after every other sheet in the head and wins ties.
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize the Matrix rain animation with hacker-themed elements
   initHackerRain();
@@ -41,7 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
  * Initialize the advanced hacker-themed digital rain animation
  */
 function initHackerRain() {
-  // Get the container element for the Matrix rain
+  // The container is the div with id matrix-rain. update_feed.sh inserts
+  // that div into the generated page, and the theme templates carry it
+  // by hand. If neither did, this function returns and the rest of the
+  // file still runs: no rain, but the other effects are independent.
   const matrixContainer = document.getElementById('matrix-rain');
   if (!matrixContainer) return;
   
@@ -52,7 +66,11 @@ function initHackerRain() {
   // Get the 2D context of the canvas
   const ctx = canvas.getContext('2d');
   
-  // Set canvas dimensions to match the window
+  // The width is the window width at load and is never set again. The
+  // resize listener calls adjustMatrixHeight(), which changes heights
+  // only, so a window made wider after load leaves a strip on the right
+  // with no rain. The height takes the largest of five measurements of
+  // the same document, because they disagree across browsers, plus 200.
   canvas.width = window.innerWidth;
   canvas.height = Math.max(
     document.body.scrollHeight,
@@ -69,7 +87,11 @@ function initHackerRain() {
   const drops = [];
   const columns = Math.ceil(canvas.width / fontSize);
   
-  // Initialize drops at random positions
+  // Each drop starts above the canvas, at a negative row. The start
+  // range is the full canvas height in rows, so on a long page some
+  // columns stay empty for a long while before their first character
+  // arrives. That stagger is what keeps the first screen from filling
+  // all at once.
   for (let i = 0; i < columns; i++) {
     drops[i] = Math.floor(Math.random() * -canvas.height / fontSize);
   }
@@ -86,7 +108,10 @@ function initHackerRain() {
     speeds[i] = 0.5 + Math.random() * 1.5;
   }
   
-  // Hacker-themed characters
+  // I weighted this list on purpose. Binary digits appear in two runs,
+  // at the start and again at the end, so they come up far more often
+  // than any other character. Drawing picks uniformly from the array,
+  // so the duplicates are the weighting.
   const hackerChars = [
     '0', '1', '0', '0', '1', // More binary for hacker feel
     'a', 'b', 'c', 'd', 'e', 'f', 
@@ -119,7 +144,10 @@ function initHackerRain() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Random chance to flash a hacker phrase across the screen
+    // At roughly 60 frames a second, a 0.003 chance per frame lands a
+    // horizontal phrase about once every five or six seconds. The
+    // phrase is painted once, in a single frame, and the fade fill on
+    // the next frames is what erases it, so it reads as a flash.
     if (Math.random() > 0.997) {
       const phrase = hackerPhrases[Math.floor(Math.random() * hackerPhrases.length)];
       const x = Math.random() * (canvas.width - 200);
@@ -165,7 +193,10 @@ function initHackerRain() {
         const char = hackerChars[Math.floor(Math.random() * hackerChars.length)];
         ctx.fillText(char, x, y);
         
-        // Reset drop position if it's at the bottom of the screen
+        // A drop past the bottom does not reset at once. It resets on
+        // a 1 percent chance per frame, so most drops fall some way off
+        // the canvas before they restart. The column is blank for that
+        // stretch, which is part of why the rain looks uneven.
         if (y > canvas.height && Math.random() > 0.99) {
           drops[i] = 0;
           
@@ -196,7 +227,11 @@ function initHackerRain() {
   drawHackerRain();
 }
 
-// Ensure Matrix rain container extends to full page height
+// Setting canvas.height here also clears the canvas, because assigning
+// to a canvas dimension resets its surface. The rain redraws on the
+// next animation frame, so the clear shows as at most one blank frame.
+// This function never touches canvas.width, which is the resize gap I
+// noted in initHackerRain().
 function adjustMatrixHeight() {
   const matrixBg = document.querySelector('.matrix-bg');
   if (matrixBg) {
@@ -218,7 +253,10 @@ function adjustMatrixHeight() {
   }
 }
 
-// Check and adjust height periodically to account for dynamic content
+// Scroll events fire far more often than I want to measure the
+// document. The flag on window means a burst of scroll events schedules
+// one recalculation, and the flag clears inside the frame callback, so
+// the next burst can schedule another.
 function checkAndAdjustMatrixHeight() {
   // Use requestAnimationFrame to avoid excessive height recalculations
   if (!window.matrixHeightRAF) {
@@ -235,7 +273,12 @@ function checkAndAdjustMatrixHeight() {
  * Note: This is entirely fictional and for entertainment purposes only
  */
 function addFictionalSurveillanceElements() {
-  // Add scanline effect
+  // The three pieces in this function guard themselves differently.
+  // The scanline is appended with no check at all. The camera block
+  // checks for an existing .surveillance-cam first, and the backup
+  // template page carries one in its markup, so on that page this
+  // block skips and the static empty div stays as it is. The access
+  // tracker is always built, and only its insertion is guarded.
   const scanline = document.createElement('div');
   scanline.className = 'surveillance-scanline';
   scanline.setAttribute('aria-hidden', 'true'); // This is decorative
@@ -268,7 +311,9 @@ function addFictionalSurveillanceElements() {
     camEffect.appendChild(camText);
   }
   
-  // Add access tracker at bottom
+  // The IP address and the file count in this markup are random
+  // numbers made on the reader's machine at load. They are set
+  // dressing, not a log of anything, and they change on every load.
   const accessTracker = document.createElement('div');
   accessTracker.className = 'access-tracker';
   accessTracker.innerHTML = `
@@ -278,7 +323,10 @@ function addFictionalSurveillanceElements() {
     <div class="access-tracker__item blinking">Recording session</div>
   `;
   
-  // Add to end of main content before footer
+  // The backup template page already carries a static .access-tracker
+  // in its markup, so on that page this insertion is skipped and the
+  // static lines stay. On the generated page there is none, so this
+  // random one is what shows.
   const footer = document.querySelector('.footer');
   if (footer && !document.querySelector('.access-tracker')) {
     footer.parentNode.insertBefore(accessTracker, footer);
@@ -305,11 +353,20 @@ function addFictionalDisclaimer() {
  * Add interactive UI effects for cybersecurity theme
  */
 function addInteractiveEffects() {
-  // Add interactive terminal effect to article titles
+  // The hover effect below works on text, not on the link's markup.
+  // It reads textContent, clears the link, and retypes the plain text,
+  // so any element inside a title link would be lost for that hover.
+  // The titles the generator emits are plain text, which is the only
+  // reason this is safe here.
   const articleTitles = document.querySelectorAll('.article__title a');
   articleTitles.forEach(title => {
     // Add cursor blink effect on hover
     title.addEventListener('mouseenter', function() {
+      // The mouseleave handler below deletes this flag while a typing
+      // interval can still be running. The interval does not check the
+      // flag, so leaving mid type does not stop the typing: the text
+      // keeps filling in, and the finished line ends with a cursor
+      // character typed as plain text instead of the span.
       if (this.dataset.processing) return; // Prevent multiple executions
       
       this.dataset.processing = 'true';
@@ -380,6 +437,12 @@ function addInteractiveEffects() {
  * Update all terminal headers with current date and time
  */
 function updateTerminalDates() {
+  // One timestamp is built once and stamped into every terminal
+  // header, so all articles on the page show the same second. That
+  // second is the reader's local time at load. It is not the article's
+  // published date: the templates that carry a real published date put
+  // it in .article__date, a different element this function never
+  // touches.
   const dateElements = document.querySelectorAll('.terminal__date');
   const now = new Date();
   
@@ -395,6 +458,13 @@ function updateTerminalDates() {
  * Initialize article sequencing for staggered reveal
  */
 function initArticleSequencing() {
+  // The delay below is index times 0.1 seconds, counted over every
+  // article on the page, so the last article on a 62 article page gets
+  // a 6.1 second transition delay once it scrolls into view. That is a
+  // second stagger system next to the one in the theme CSS, which
+  // animates on the --article-index property update_feed.sh writes
+  // inline, at 0.15 seconds per index. The two were not tuned against
+  // each other, and both run on the built page.
   const articles = document.querySelectorAll('.feed__article');
   
   // Using Intersection Observer for revealing articles as they scroll into view
@@ -409,13 +479,22 @@ function initArticleSequencing() {
     threshold: 0.2
   });
   
+  // The observer unobserves after the first reveal, so an article
+  // never hides again once it has shown.
   articles.forEach((article, index) => {
     article.style.transitionDelay = `${index * 0.1}s`;
     observer.observe(article);
   });
 }
 
-// Add dark-styled cybersecurity CSS effects
+// This style block only exists when this file runs. It repeats the
+// .feed__article hide that the canonical theme CSS already carries,
+// and adds the .article-visible rule the observer above uses, so the
+// page has two reveals for the same elements: the CSS animation in
+// matrix.css and this class. Inside the block there is also a rule
+// that sets an href property on link[rel="icon"] as if it were CSS.
+// href is not a CSS property, so that rule does nothing. The working
+// favicon is the link element created after this block.
 function addDynamicStyles() {
   const style = document.createElement('style');
   style.textContent = `
@@ -601,7 +680,10 @@ function addDynamicStyles() {
   `;
   
   document.head.appendChild(style);
-  
+
+  // The pages already link a favicon in their head. This appends a
+  // second icon link instead of replacing the first, and which one a
+  // browser uses is up to the browser.
   // Create SVG favicon
   const favicon = document.createElement('link');
   favicon.rel = 'icon';

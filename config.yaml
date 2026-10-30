@@ -1,13 +1,24 @@
 # Hackers-Den - Matrix-themed RSS feed
 title: "Hackers-Den"
 
-# Use the built-in dark theme (we'll apply Matrix styling after generation)
+# I name the built-in dark theme here because the JAR only takes its
+# own themes. My Matrix styling is not a JAR theme at all: update_feed.sh
+# applies it to the generated HTML after the JAR has run, which is why
+# this file says dark while the finished site wears the Matrix CSS.
 theme: dark
 
-# Update frequency for fresher content
+# This says daily, and the update workflow also runs daily at 03:00
+# UTC. The two settings sit in different files and neither reads the
+# other, so changing one without the other leaves them out of step.
 edition: daily
 
 # Cybersecurity and hacking-focused feeds
+# The first three feeds are not sites with their own RSS. They are
+# newsletters I routed through kill-the-newsletter, which turns an
+# email subscription into a feed URL. site_methods.txt holds the notes
+# I made when I picked these sources, including one source I dropped.
+# Nothing in this repo prunes this list, so a feed that dies stays
+# listed here until I remove it by hand. The list is the record.
 feeds:
   # Current feeds
   - https://kill-the-newsletter.com/feeds/oozrzxtg7nxieettty99.xml
