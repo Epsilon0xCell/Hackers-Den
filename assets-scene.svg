@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" width="100%">
+<defs><filter id="hs"><feTurbulence baseFrequency="0.02 0.09" numOctaves="2" seed="4"><animate attributeName="seed" values="4;9;4" dur="12s" repeatCount="indefinite"/></feTurbulence><feDisplacementMap scale="7"/></filter></defs>
+<rect width="1200" height="260" fill="#e8d9a8"/>
+<rect y="30" width="1200" height="34" fill="#96606e" filter="url(#hs)"/><rect y="64" width="1200" height="28" fill="#c48c50" filter="url(#hs)"/><rect y="92" width="1200" height="26" fill="#4a2c44" filter="url(#hs)"/>
+<g opacity="0.65"><ellipse cx="0" cy="70" rx="26" ry="42" fill="#d8c9a0"><animate attributeName="cx" values="0;240;240" keyTimes="0;0.7;1" dur="20s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0.7;0;0" keyTimes="0;0.2;0.7;1" dur="20s" repeatCount="indefinite"/></ellipse></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 0;120 0" dur="40s" repeatCount="indefinite"/>
+<path d="M60 218 Q300 196 560 210 T1060 206" stroke="#8a6a34" stroke-width="3" fill="none" stroke-dasharray="7 9" opacity="0.7"/>
+<ellipse cx="330" cy="182" rx="150" ry="40" fill="#38222e"/><ellipse cx="330" cy="176" rx="138" ry="34" fill="#c99a3e"/>
+<circle cx="252" cy="166" r="6" fill="#eedfc4"/><circle cx="300" cy="158" r="6" fill="#eedfc4"/><circle cx="352" cy="166" r="6" fill="#eedfc4"/>
+<polygon points="452,158 522,168 522,190 452,196" fill="#38222e"/><circle cx="492" cy="172" r="5" fill="#40b2aa"/>
+<line x1="522" y1="180" x2="566" y2="176" stroke="#c43c50" stroke-width="4"><animate attributeName="x2" values="566;578;566" dur="6s" repeatCount="indefinite"/></line>
+<polygon points="180,196 226,202 218,222 186,220" fill="#38222e"/></g>
+<g stroke="#5d7a3e" stroke-width="5"><line x1="880" y1="150" x2="872" y2="196"><animateTransform attributeName="transform" type="rotate" values="-2 880 196;2 880 196;-2 880 196" dur="9s" repeatCount="indefinite"/></line><line x1="940" y1="150" x2="948" y2="196"><animateTransform attributeName="transform" type="rotate" values="2 940 196;-2 940 196;2 940 196" dur="11s" repeatCount="indefinite"/></line></g>
+<circle cx="60" cy="238" r="9" fill="#9a7a4c"><animate attributeName="cx" values="60;150;150" keyTimes="0;0.3;1" dur="24s" repeatCount="indefinite"/></circle>
+</svg>
