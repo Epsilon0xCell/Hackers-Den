@@ -1,10 +1,12 @@
-![Introduction banner](intro-banner.png)
+![Introduction: the copier lid open and yesterday's spread pinned above today's on a wall, the green rain panel brighter on the new sheet, torn edges and tape shapes, xerox greys, photocopied zine collage](intro-banner.png)
 
 # Hackers-Den
 
+<p align="center"><img src="logo.png" alt="Hackers-Den logo: a folded newspaper shape in stark white and xerox black with torn paper edges, one acid green column of falling droplet shapes down its fold like code rain, rough photocopy grain" width="200"></p>
+
 A Matrix-themed cybersecurity RSS newspaper, regenerated daily with GitHub Actions and published with GitHub Pages.
 
-![Wordmark banner](banner.png)
+![Hackers-Den banner: a broadsheet newspaper spread built from torn photocopied panels in black, grey and white, green rain streaks photocopied across the columns, a fresh sheet rolling off a copier drum at the right edge, heavy photocopy grain](banner.png)
 
 <img src="assets-scene.svg" alt="Animated themed scene" width="100%">
 

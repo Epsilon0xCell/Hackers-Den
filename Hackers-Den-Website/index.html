@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hackers-Den: a waterhole notice board of security feeds</title>
+<title>Hackers-Den: the photocopied zine newsroom</title>
 <meta name="description" content="A Matrix-themed cybersecurity RSS newspaper, regenerated daily with GitHub Actions and published with GitHub Pages.">
 <style>
-@font-face { font-family: Aldrich; src: url(fonts/Aldrich-Regular.ttf); }
-@font-face { font-family: Barlow; src: url(fonts/Barlow-Regular.ttf); }
-:root { --gold:#c99a3e; --dune:#dcc084; --bone:#eee4c4; --plum:#2e1c2e; --turq:#0d6e68; }
-* { box-sizing:border-box; } body { margin:0; background:var(--dune); color:#241a20; font-family:Barlow, sans-serif; line-height:1.6; }
-h1,h2,h3 { font-family:Aldrich, sans-serif; letter-spacing:.12em; }
-.wall { background:linear-gradient(180deg,#4a2c44,#2e1c2e 40%,#241426); padding:2.4rem 5vw 1.4rem; color:var(--bone); }
-.wall img.banner { width:100%; height:auto; border:4px solid #191019; } .logo { width:88px; height:88px; }
-.rail { display:flex; gap:.7rem; flex-wrap:wrap; margin:1rem 0; }
-.btn { font-family:Aldrich; letter-spacing:.08em; background:linear-gradient(180deg,#c97a44,#a85a30); color:#fff6e0; border:2px dashed #7a3c1e; border-radius:10px 14px 9px 13px; padding:.55rem 1rem; text-decoration:none; display:inline-block; transition:transform .15s, filter .15s; }
-.btn:hover { filter:brightness(1.18); transform:translateY(-1px); } .btn:active { transform:translateY(2px); filter:brightness(.88); }
-.btn:focus-visible { outline:3px solid #40b2aa; outline-offset:2px; } .btn.current::before { content:"● "; color:var(--gold); }
-main { max-width:880px; margin:0 auto; padding:1rem 5vw 3rem; }
-.posting { background:var(--bone); border:1px solid #b89a5e; border-left:8px solid var(--gold); padding:1.1rem 1.4rem; margin:1.4rem 0; box-shadow:4px 5px 0 rgba(46,28,46,.25); }
-.posting.night { background:var(--plum); color:var(--bone); }
-.feed { color:var(--turq); font-weight:600; } a { color:var(--turq); } .hour { color:#40b2aa; font-weight:700; }
-pre.code { background:#101014; color:#e8e6df; padding:1rem; overflow-x:auto; font-size:.84rem; border-left:5px solid var(--gold); }
-.shots { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); } .shots img { width:100%; height:auto; border:1px solid #b89a5e; background:#f4f1e8; }
-.rule { border:0; border-top:3px solid var(--gold); margin:2rem 0; } footer { padding:1.6rem 5vw; color:#4a3a28; }
+@font-face{font-family:'Wallpoet';src:url('fonts/Wallpoet-Regular.ttf') format('truetype')}
+@font-face{font-family:'Space Mono';src:url('fonts/SpaceMono-Regular.ttf') format('truetype');font-weight:400}
+@font-face{font-family:'Space Mono';src:url('fonts/SpaceMono-Bold.ttf') format('truetype');font-weight:700}
+:root{--ink:#141414;--paper:#f2f0ea;--grey:#8a8a86;--acid:#3ecf5f}
+*{box-sizing:border-box}
+body{margin:0;background:#1c1c1c;color:#232323;font-family:'Space Mono',monospace;line-height:1.6}
+h1,h2,h3{font-family:'Wallpoet',sans-serif;font-weight:400;letter-spacing:.04em}
+.wall{background:#101010;padding:2.4rem 5vw 1.4rem;color:var(--paper);border-bottom:6px solid var(--acid)}
+.wall img.banner{width:100%;height:auto;border:4px solid var(--paper);filter:contrast(1.05)}
+.logo{width:88px;height:88px;background:var(--paper)}
+.rail{display:flex;gap:.7rem;flex-wrap:wrap;margin:1rem 0}
+.btn{font-family:'Wallpoet',sans-serif;letter-spacing:.05em;background:var(--paper);color:var(--ink);border:2px solid var(--ink);outline:2px solid var(--grey);padding:.55rem 1rem;text-decoration:none;display:inline-block;transition:transform .15s,background .15s}
+.btn:hover{background:var(--acid);transform:rotate(-1deg)}
+.btn:active{transform:translateY(2px)}
+.btn:focus-visible{outline:3px solid var(--acid);outline-offset:2px}
+.btn.current::before{content:"● ";color:#1d9e42}
+main{max-width:880px;margin:0 auto;padding:1rem 5vw 3rem}
+.posting{background:var(--paper);border:2px solid var(--ink);padding:1.1rem 1.4rem;margin:1.4rem 0;box-shadow:5px 6px 0 rgba(0,0,0,.55)}
+.posting.night{background:#181818;color:var(--paper);border-color:var(--acid)}
+.feed{color:#177a31;font-weight:700}
+.posting.night .feed{color:var(--acid)}
+a{color:#177a31}
+.hour{color:#1d9e42;font-weight:700}
+pre.code{background:#0c0c0c;color:#d8ffd8;padding:1rem;overflow-x:auto;font-size:.84rem;border-left:5px solid var(--acid)}
+.shots{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:1.4rem 0}
+.shots img{width:100%;height:auto;border:2px solid var(--ink);background:#e8e6e0}
+.shots figcaption{font-size:.85rem;color:#3d3d3d;padding:.3rem 0}
+.rule{border:0;border-top:4px dashed var(--grey);margin:2rem 0}
+footer{padding:1.6rem 5vw;color:#a9a9a4}
 </style></head><body>
 <header class="wall">
-<img class="logo" src="assets/logo.png" alt="Hackers-Den logo"><img class="banner" src="assets/banner.png" alt="">
+<img class="logo" src="assets/logo.png" alt="Hackers-Den logo: a folded newspaper shape in stark white and xerox black with torn paper edges, one acid green column of falling droplet shapes down its fold like code rain"><img class="banner" src="assets/banner.png" alt="A broadsheet newspaper spread built from torn photocopied panels in black, grey and white, green rain streaks photocopied across the columns, a fresh sheet rolling off a copier drum at the right edge">
 <h1>Hackers-Den</h1>
 <p>The paper is regenerated daily at <span class="hour">03:00 UTC</span> by GitHub Actions, sixteen feeds gathered into a Matrix styled newspaper and published through GitHub Pages.</p>
 <nav class="rail" aria-label="on this page"><a class="btn current" href="#run">Run it</a><a class="btn" href="#files">The files</a><a class="btn" href="#sheets">The sheets</a><a class="btn" href="https://github.com/Epsilon0xCell/Hackers-Den">The repo</a></nav>
 <p><a href="https://github.com/Epsilon0xCell/Hackers-Den" style="color:#40b2aa">github.com/Epsilon0xCell/Hackers-Den</a></p>
 </header>
 <main>
+<figure class="shots"><img src="assets/intro.png" alt="The copier lid open and yesterday's spread pinned above today's on a wall, the green rain panel brighter on the new sheet, torn edges and tape shapes, xerox greys"><figcaption>The intro plate: yesterday's spread pinned above today's, off the copier.</figcaption></figure>
 <article class="posting"><h2>Posting one, what arrives here</h2>
 <p>Sixteen feeds are gathered into one page. Named among the sixteen entries in config.yaml: <span class="feed">Krebs on Security</span>, <span class="feed">The Hacker News</span>, <span class="feed">Schneier on Security</span>, <span class="feed">BleepingComputer</span>, <span class="feed">Dark Reading</span> and the <span class="feed">SANS Internet Storm Center</span> podcast. Three of them are newsletters routed through kill-the-newsletter, plus <span class="feed">Hacking Humans</span> and <span class="feed">Darknet Diaries</span> among the podcast feeds.</p></article>
 <hr class="rule">
