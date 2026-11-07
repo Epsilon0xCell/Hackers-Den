@@ -13,29 +13,54 @@ theme: dark
 edition: daily
 
 # Cybersecurity and hacking-focused feeds
-# The first three feeds are not sites with their own RSS. They are
-# newsletters I routed through kill-the-newsletter, which turns an
-# email subscription into a feed URL. site_methods.txt holds the notes
-# I made when I picked these sources, including one source I dropped.
-# Nothing in this repo prunes this list, so a feed that dies stays
-# listed here until I remove it by hand. The list is the record.
+# The first three feeds in the last group are not sites with their own
+# RSS. They are newsletters I routed through kill-the-newsletter, which
+# turns an email subscription into a feed URL. site_methods.txt holds
+# the notes I made when I picked these sources, including the sources
+# I have dropped and why.
+# I verified every URL below live on 2026-11-07: HTTP 200 after
+# redirects, a body that parses as RSS or Atom, and a newest item no
+# older than a few days. scripts/check_feeds.py repeats that check on
+# demand and fails if any feed is dead or has gone 90 days without an
+# item, which is the line I prune at. The three feeds I removed in
+# this pass (Threatpost, Naked Security, ZDNet security) and the two
+# candidates I rejected (Rapid7, the direct Mandiant feed) are
+# recorded with their reasons in site_methods.txt.
 feeds:
-  # Current feeds
+  # Official advisories and storm centers
+  - https://www.cisa.gov/cybersecurity-advisories/all.xml
+  - https://isc.sans.edu/rssfeed.xml
+
+  # News wires
+  - https://feeds.feedburner.com/TheHackersNews
+  - https://www.bleepingcomputer.com/feed/
+  - https://www.darkreading.com/rss.xml
+  - https://www.securityweek.com/feed/
+  - https://www.helpnetsecurity.com/feed/
+  - https://therecord.media/feed
+  - https://arstechnica.com/security/feed/
+  - https://www.cybersecuritydive.com/feeds/news/
+  - https://www.wired.com/feed/category/security/latest/rss
+
+  # Research and vendor blogs
+  - https://krebsonsecurity.com/feed/
+  - https://www.schneier.com/blog/atom.xml
+  - https://blog.talosintelligence.com/rss/
+  - https://unit42.paloaltonetworks.com/feed/
+  - https://www.microsoft.com/en-us/security/blog/feed/
+  - https://cloudblog.withgoogle.com/products/identity-security/rss/
+  - https://www.malwarebytes.com/blog/feed
+  - https://www.welivesecurity.com/en/rss/feed/
+  - https://www.huntress.com/blog/rss.xml
+  - https://www.troyhunt.com/rss/
+  - https://grahamcluley.com/feed/
+
+  # Podcasts and newsletters
   - https://kill-the-newsletter.com/feeds/oozrzxtg7nxieettty99.xml
   - https://kill-the-newsletter.com/feeds/nzaowh59yejdvcx52y6d.xml
   - https://kill-the-newsletter.com/feeds/yz1olmn3cz6i3w7v30at.xml
   - https://isc.sans.edu/dailypodcast.xml
   - https://feeds.megaphone.fm/hacking-humans
   - https://podcast.darknetdiaries.com
-  
-  # Additional top security feeds
-  - https://krebsonsecurity.com/feed/
-  - https://feeds.feedburner.com/TheHackersNews
-  - https://www.schneier.com/blog/atom.xml
-  - https://threatpost.com/feed/
-  - https://www.zdnet.com/topic/security/rss.xml
-  - https://nakedsecurity.sophos.com/feed
-  - https://www.securityweek.com/feed/
-  - https://www.darkreading.com/rss.xml
-  - https://www.bleepingcomputer.com/feed/
-  - https://www.helpnetsecurity.com/feed/
+  - https://feeds.megaphone.fm/cyberwire-daily-podcast
+  - https://danielmiessler.com/feed

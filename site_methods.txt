@@ -14,3 +14,27 @@ https://isc.sans.edu/dailypodcast.xml (SANS Daily Stormcast) (Good Podcast for l
 https://www.cisa.gov/about/contact-us/subscribe-updates-cisa + https://kill-the-newsletter.com/ (CISA For Very Reliable Info) (Subscriber Preference = Cybersecurity Advisories, Information Vulnerability Bulletins, Known Exploited Vulnerabilities)
 https://feeds.megaphone.fm/hacking-humans (Hacking Humans Podcast for insight into social engineering attacks)
 https://podcast.darknetdiaries.com/ (Interesting Stories Related to Hacking)
+
+# Feed list overhaul, verified live 2026-11-07. I fetched every feed in
+# config.yaml and every candidate I considered, and kept only the ones
+# that answered with a parseable RSS or Atom body and a recent newest
+# item. scripts/check_feeds.py in this repo repeats that check. The
+# list went from 16 feeds to 30. What I dropped, and why, stays
+# recorded here so I do not retest these without a reason:
+# https://threatpost.com/feed/ (dropped 2026-11-07: the feed still
+# answers, but its newest item is dated 2022-08-31. The site is a
+# zombie and had been padding the paper with four year old news.)
+# https://nakedsecurity.sophos.com/feed (dropped 2026-11-07: the feed
+# URL times out and the domain now lands on the Sophos blog home. No
+# feed is served there anymore.)
+# https://www.zdnet.com/topic/security/rss.xml (dropped 2026-11-07:
+# the security topic feed is gone. The URL now redirects to ZDNet's
+# general news feed, which is off scope for a security paper.)
+# https://blog.rapid7.com/rss/ (never added: it redirects to
+# www.rapid7.com/rss.xml, and that body is not well formed XML. It
+# carries a raw control character at line 433, so strict parsers,
+# mine included, refuse it.)
+# https://www.mandiant.com/resources/blog/rss.xml (never added: it
+# redirects to an HTML page, not a feed. Google Cloud's security
+# coverage, including Mandiant's home there, comes in through the
+# cloudblog.withgoogle.com identity-security feed instead.)
