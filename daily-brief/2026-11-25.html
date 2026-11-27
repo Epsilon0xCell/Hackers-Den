@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE SNI DAILY BRIEF, Wednesday 25 November 2026, PUBLICLY DISCLOSED</title>
+<style>
+  body { background:#000; color:#e8e2d0; font-family: Georgia, 'Times New Roman', serif; margin:0; padding:24px 16px 64px; line-height:1.65; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .diamond { color:#8b7cf0; text-align:center; font-size:28px; letter-spacing:12px; }
+  h1 { color:#d4af37; text-align:center; letter-spacing:4px; font-size:34px; margin:8px 0 2px; }
+  .org { text-align:center; color:#bfa75a; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+  .banner { border:2px solid #d4af37; color:#d4af37; text-align:center; padding:10px; margin:20px 0 6px; letter-spacing:6px; font-weight:bold; font-size:18px; }
+  .stamp { display:block; width:fit-content; margin:14px auto 4px; border:3px double #8b7cf0; color:#8b7cf0; padding:6px 18px; letter-spacing:4px; font-weight:bold; transform:rotate(-3deg); text-transform:uppercase; }
+  .serial { text-align:center; color:#9a8f6d; font-size:13px; margin-bottom:28px; }
+  h2 { color:#d4af37; border-bottom:1px solid #4a3f14; padding-bottom:6px; margin-top:36px; letter-spacing:1px; }
+  h3 { color:#e8e2d0; margin-bottom:4px; }
+  a { color:#8b7cf0; }
+  .means { border-left:3px solid #8b7cf0; padding:4px 12px; color:#cfc7ab; background:#0a0a0a; }
+  .rule { border:none; border-top:1px solid #333; margin:28px 0; }
+  footer { text-align:center; color:#9a8f6d; font-size:13px; margin-top:48px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diamond">&#9670;</div>
+  <h1>THE SNI DAILY BRIEF</h1>
+  <div class="org">Shadow Night Intelligence</div>
+  <div class="banner">PUBLICLY DISCLOSED</div>
+  <span class="stamp">Declassified for public release</span>
+  <div class="serial">Wednesday 25 November 2026 &nbsp;|&nbsp; Serial SNI-DB-2026-11-25 &nbsp;|&nbsp; Prepared for the public record</div>
+  <p>Reader, welcome. This is the public edition of the daily cyber brief from Shadow Night Intelligence (SNI). Everything in it is explained in plain words. A <strong>vulnerability</strong> is a mistake in software that lets an attacker do something they should not be able to do, like a lock that opens with the wrong key. A <strong>CVE</strong> is the official catalogue number given to one vulnerability, so everyone is talking about the same mistake. A <strong>patch</strong> is the repair the maker releases. An <strong>exploit</strong> is the tool or trick that uses a vulnerability. A score out of 10, called a CVSS score, measures how serious a vulnerability is: 9 or above is critical.</p>
+
+  <h2>Top 3, must know</h2>
+  <h3>1. Three more exploited flaws join the KEV list, due 27 November</h3>
+  <p>CISA added three flaws to its Known Exploited Vulnerabilities catalogue on 24 November, all due 27 November. First, Drupal Core <strong>CVE-2026-132165</strong>. Drupal is the system many large websites are built on; this installer flaw lets a site whose setup page is reachable be taken over, and it has been exploited on live sites since 19 November at 19:00 UTC. Fixes are Drupal 10.6.22, 11.3.22 and 11.4.13. Second, Idunno AntiCsrf <strong>CVE-2026-131914</strong>, scored 9.3 in one listing and 9.8 in another. AntiCsrf is a small component meant to stop forged requests; through version 0.9.1 Beta it can be tricked into rebuilding attacker supplied data without checking it, a flaw class called untrusted deserialization, giving an attacker with no account at all remote code execution, the ability to run their own commands from far away. Third, Optimizely Web Experimentation <strong>CVE-2026-132224</strong>, scored 7.1, the signup flaw behind this month&apos;s OPTIMJACK attack, in which malicious code was placed onto 188 websites belonging to 178 organizations. The vendor fix was deployed before 17 November.</p>
+  <p class="means"><strong>What this means for you:</strong> two of the three were already reported as incidents earlier this month. The news tells you first; the government deadline arrives after.</p>
+
+  <h3>2. A second VMware wave: 23 new flaws, four critical</h3>
+  <p>Broadcom published advisory VMSA-2026-0011 on 24 November covering 23 VMware flaws, four critical. VMware runs many virtual servers on one physical machine; vCenter is its control room, and ESX runs directly on the hardware. The headline is <strong>CVE-2026-123903</strong>, scored 9.8: a new login bypass in the vCenter directory service. It is distinct from CVE-2026-123890, the exploited bypass whose deadline passed on 23 November, and no exploitation of the new one has been reported. There is no workaround; fixes are vCenter 9.1.2, 9.0.2.0300 and 8.0 U3m. Two further critical flaws, <strong>CVE-2026-123910</strong> and <strong>CVE-2026-123911</strong>, scored 9.8 each, allow code execution on the ESX host itself.</p>
+  <p class="means"><strong>What this means for you:</strong> anyone who rushed to patch vCenter for Monday&apos;s deadline is not finished. A second, separate bypass in the same product was published the next day.</p>
+
+  <h3>3. Hex.pm: a perfect 10.0 flaw was used to run commands on six production servers</h3>
+  <p>Hex.pm is the package repository for the Elixir programming language, where programmers fetch ready made code pieces. Its incident report of 24 November says a flaw scored the maximum 10.0, <strong>CVE-2026-129514</strong>, was exploited on 23 November: 69 requests, commands run on 6 production servers, all patched by 18:31 UTC the same day. No package modification was found. What cannot be ruled out is that account data was read: email addresses, password hashes, scrambled stored forms of passwords, and two factor secrets, the hidden keys behind the second login step. Users are told to change their password, reset their two factor login, and fetch only from the official address, repo.hex.pm.</p>
+  <p class="means"><strong>What this means for you:</strong> a copied two factor secret silently removes the second lock from an account until it is reset. The clean package check is not proof that account data was safe.</p>
+
+  <hr class="rule">
+  <h2>Threat actors and campaigns</h2>
+  <h3>GreyNoise GT13: Check Point management servers compromised at 22 organizations</h3>
+  <p>Check Point makes firewalls; its Security Management servers are the consoles that set the rules for many firewalls at once. The security firm GreyNoise reports 24 of these servers, at 22 organizations in 17 countries, were compromised, with confirmed activity from 17 October to 2 November. The attackers used a SmartConsole login bypass, <strong>CVE-2026-16232</strong>, on the KEV list since July, and GreyNoise assesses that AI driven tooling was used. The campaign is unattributed and may still be active.</p>
+  <p class="means"><strong>What this means for you:</strong> the attackers did not attack firewalls one by one; they attacked the one console that manages many. Management systems are now the first target, not the last.</p>
+
+  <h2>Breaches and incidents</h2>
+  <h3>Reported CIA and ODNI system breach: treat as reported, not confirmed in detail</h3>
+  <p>On 24 November the New York Times, Reuters and the Associated Press reported that an unclassified system used for open source intelligence analysis was breached. Open source intelligence means information gathered from public material rather than from spies or secrets. A source says no highly sensitive information was involved and the issue has been resolved; what was taken and who did it remain unclear, with no detailed official confirmation.</p>
+  <h3>Radware: management doorway exposed customer details and some cloud credentials</h3>
+  <p>Radware, a security company, reports that on 19 November an unauthorized party reached an internet exposed internal management API for its Cloud WAF service, a web application firewall being a filter that sits in front of a website and blocks attacks. The exposure included customer contact details and, for some customers, log export cloud credentials. Affected customers are told to rotate those credentials, meaning replace them with fresh ones.</p>
+
+  <hr class="rule">
+  <h2>Watch / act</h2>
+  <p>1. Tomorrow, 26 November 2026, with forensic triage: MONAI Label CVE-2026-133968 and N-able MailAssure CVE-2026-134624.</p>
+  <p>2. By 27 November 2026: Drupal CVE-2026-132165, Idunno CVE-2026-131914, and Optimizely CVE-2026-132224.</p>
+  <p>3. VMware: patch vCenter and ESX to the VMSA-2026-0011 builds. Monday&apos;s patch does not cover Tuesday&apos;s advisory.</p>
+  <p>4. Check Point management servers: check against the CVE-2026-16232 fixes and audit logs back to 17 October.</p>
+  <p>5. Hex.pm account holders: change the password and reset two factor today. Radware Cloud WAF customers: rotate log export cloud credentials.</p>
+  <p>6. Ahead: Puppet CVE-2026-115731 due 1 December, LiteLLM CVE-2026-40217 due 2 December.</p>
+
+  <footer>
+    <div class="diamond">&#9670;</div>
+    THE SNI DAILY BRIEF is published by Shadow Night Intelligence for the public record. Items marked unverified or single source are labelled in the text. Verify before you act on anything that touches a system you own.<br>
+    <a href="index.html">Daily Brief archive</a>
+  </footer>
+</div>
+</body>
+</html>

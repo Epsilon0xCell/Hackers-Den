@@ -5,7 +5,7 @@
  * colors I actually paint with in this file are red: the rain builds
  * its color from a red channel of 200 or more with green and blue
  * usually at 0, and addDynamicStyles() below sets a variable named
- * --terminal-green to #cc0000, which is red. I keep the names as they
+ * --terminal-green to #bfa75a, which is red. I keep the names as they
  * are and note the mismatch here instead of pretending they agree.
  * The surveillance pieces are decoration. The disclaimer function at
  * the bottom of the startup list says so on the page itself.
@@ -154,7 +154,7 @@ function initHackerRain() {
       const y = Math.random() * canvas.height;
       
       ctx.font = "bold 24px 'Source Code Pro', monospace";
-      ctx.fillStyle = `rgba(255, 0, 0, 0.7)`;
+      ctx.fillStyle = `rgba(212, 175, 55, 0.7)`;
       ctx.fillText(phrase, x, y);
     }
     
@@ -167,7 +167,7 @@ function initHackerRain() {
           for (let j = 0; j < phrase.length; j++) {
             if (drops[i] * fontSize + j * fontSize < canvas.height) {
               // Red color theme for hacker feel
-              ctx.fillStyle = `rgba(255, 0, 0, ${brightness[i] * 0.8})`;
+              ctx.fillStyle = `rgba(212, 175, 55, ${brightness[i] * 0.8})`;
               ctx.font = `${fontSize * 0.8}px 'Source Code Pro', monospace`;
               ctx.fillText(phrase[j], i * fontSize, drops[i] * fontSize + j * fontSize);
             }
@@ -179,9 +179,9 @@ function initHackerRain() {
         const y = drops[i] * fontSize;
         
         // Use red color scheme for hacker feel, vary brightness
-        let colorR = Math.floor(200 * brightness[i] + 50); // More red for hacker theme
-        let colorG = Math.floor(50 * brightness[i] * (Math.random() > 0.8 ? 1 : 0));
-        let colorB = Math.floor(50 * brightness[i] * (Math.random() > 0.9 ? 1 : 0));
+        let colorR = Math.floor(200 * brightness[i] + 50); // SNI gold rain, like city lights seen from orbit
+        let colorG = Math.floor(165 * brightness[i]);
+        let colorB = Math.floor(45 * brightness[i] * (Math.random() > 0.9 ? 2 : 1));
         
         ctx.fillStyle = `rgba(${colorR}, ${colorG}, ${colorB}, ${brightness[i]})`;
         
@@ -214,7 +214,7 @@ function initHackerRain() {
     for (let i = 0; i < canvas.height; i += 100) {
       if (Math.random() > 0.985) {
         const scanOpacity = 0.1 + Math.random() * 0.2;
-        ctx.fillStyle = `rgba(255, 0, 0, ${scanOpacity})`;
+        ctx.fillStyle = `rgba(212, 175, 55, ${scanOpacity})`;
         ctx.fillRect(0, i, canvas.width, 1);
       }
     }
@@ -503,7 +503,7 @@ function addDynamicStyles() {
       --nsa-blue: #660000;
       --nsa-dark-blue: #330000;
       --surveillance-amber: #ffbf00;
-      --terminal-green: #cc0000;
+      --terminal-green: #bfa75a;
     }
     
     body {
@@ -522,8 +522,8 @@ function addDynamicStyles() {
       left: 0;
       width: 100%;
       height: 3px;
-      background: rgba(255, 0, 0, 0.15);
-      box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+      background: rgba(212, 175, 55, 0.15);
+      box-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
       opacity: 0.7;
       z-index: 9999;
       pointer-events: none;
@@ -541,7 +541,7 @@ function addDynamicStyles() {
       left: 50%;
       transform: translate(-50%, -50%) rotate(-30deg);
       font-size: 10vw;
-      color: rgba(150, 0, 0, 0.05);
+      color: rgba(139, 124, 60, 0.05);
       font-family: 'Source Code Pro', monospace;
       letter-spacing: 0.2em;
       z-index: 99999;
@@ -549,7 +549,7 @@ function addDynamicStyles() {
       user-select: none;
       text-transform: uppercase;
       font-weight: 900;
-      text-shadow: 0 0 15px rgba(150, 0, 0, 0.1);
+      text-shadow: 0 0 15px rgba(139, 124, 60, 0.1);
     }
     
     .document-header {
@@ -615,8 +615,8 @@ function addDynamicStyles() {
     }
     
     .terminal__header {
-      background-color: rgba(30, 0, 0, 0.95) !important;
-      border-bottom: 1px solid rgba(200, 0, 0, 0.3) !important;
+      background-color: rgba(16, 14, 8, 0.95) !important;
+      border-bottom: 1px solid rgba(191, 167, 90, 0.3) !important;
     }
     
     .terminal__prompt {

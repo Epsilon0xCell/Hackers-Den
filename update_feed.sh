@@ -183,10 +183,18 @@ if ! grep -q "matrix-bg" dist/index.html; then
   sed -i '/<body>/a \    <!-- Matrix Background -->\n    <div class="matrix-bg">\n        <div class="matrix-rain" id="matrix-rain"></div>\n    </div>' dist/index.html
 fi
 
+# Add the SNI Daily Brief archive link, under the banner. It points at
+# the daily-brief/ section this same script restores into dist/ above,
+# so the link never lands on a missing page.
+echo "[+] Adding Daily Brief archive link..."
+if ! grep -q "daily-brief/index.html" dist/index.html; then
+  sed -i '/<body>/a \    <!-- SNI Daily Brief -->\n    <div class="sni-brief-link" style="text-align:center;padding:10px;border-bottom:1px solid #4a3f14;"><a href="daily-brief/index.html" style="color:#d4af37;letter-spacing:3px;">&#9670; THE SNI DAILY BRIEF, PUBLICLY DISCLOSED, ARCHIVE &#9670;</a></div>' dist/index.html
+fi
+
 # Add surveillance notification banner
 echo "[+] Adding surveillance notification banner..."
 if ! grep -q "surveillance-notification" dist/index.html; then
-  sed -i '/<body>/a \    <!-- Surveillance Notification -->\n    <div class="surveillance-notification">THIS CONNECTION IS BEING MONITORED</div>' dist/index.html
+  sed -i '/<body>/a \    <!-- Surveillance Notification -->\n    <div class="surveillance-notification">◆ SHADOW NIGHT INTELLIGENCE ◆ PUBLICLY DISCLOSED ◆</div>' dist/index.html
 fi
 
 # The match is the exact header tag with no other attributes. If the
@@ -234,14 +242,14 @@ fi
 # without a slash and one with. If a default string changes upstream,
 # that one replace quietly does nothing.
 echo "[+] Updating page metadata..."
-sed -i 's|<meta name="description" content="My static news generator">|<meta name="description" content="Hackers-Den - Matrix-themed cybersecurity and hacking news aggregator">|' dist/index.html
+sed -i 's|<meta name="description" content="My static news generator">|<meta name="description" content="Hackers-Den - Shadow Night Intelligence, publicly disclosed cybersecurity briefing">|' dist/index.html
 sed -i 's|<meta name="generator" content="RSSPAPER">|<meta name="generator" content="Hackers-Den">|' dist/index.html
 sed -i 's|<meta name="theme-color" content="#2e3440">|<meta name="theme-color" content="#000000">|' dist/index.html
-sed -i 's|<meta name="theme-color" content="#5e81ac" />|<meta name="theme-color" content="#00ff00" />|' dist/index.html
+sed -i 's|<meta name="theme-color" content="#5e81ac" />|<meta name="theme-color" content="#d4af37" />|' dist/index.html
 
 # Update the subtitle
 echo "[+] Updating site subtitle..."
-sed -i 's|<span class="subtitle__separator">~</span> <span class="subtitle__text">My static generate newspaper</span> <span class="subtitle__separator">~</span>|<span class="subtitle__separator">[</span> <span class="subtitle__text">Cybersecurity Intelligence</span> <span class="subtitle__separator">]</span>|' dist/index.html
+sed -i 's|<span class="subtitle__separator">~</span> <span class="subtitle__text">My static generate newspaper</span> <span class="subtitle__separator">~</span>|<span class="subtitle__separator">[</span> <span class="subtitle__text">Shadow Night Intelligence, Publicly Disclosed</span> <span class="subtitle__separator">]</span>|' dist/index.html
 
 # The footer match anchors on the RSSpaper credit text the generator
 # emits. The heart markup inside it is matched loosely, as anything up

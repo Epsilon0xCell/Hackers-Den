@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE SNI DAILY BRIEF, Tuesday 24 November 2026, PUBLICLY DISCLOSED</title>
+<style>
+  body { background:#000; color:#e8e2d0; font-family: Georgia, 'Times New Roman', serif; margin:0; padding:24px 16px 64px; line-height:1.65; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .diamond { color:#8b7cf0; text-align:center; font-size:28px; letter-spacing:12px; }
+  h1 { color:#d4af37; text-align:center; letter-spacing:4px; font-size:34px; margin:8px 0 2px; }
+  .org { text-align:center; color:#bfa75a; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+  .banner { border:2px solid #d4af37; color:#d4af37; text-align:center; padding:10px; margin:20px 0 6px; letter-spacing:6px; font-weight:bold; font-size:18px; }
+  .stamp { display:block; width:fit-content; margin:14px auto 4px; border:3px double #8b7cf0; color:#8b7cf0; padding:6px 18px; letter-spacing:4px; font-weight:bold; transform:rotate(-3deg); text-transform:uppercase; }
+  .serial { text-align:center; color:#9a8f6d; font-size:13px; margin-bottom:28px; }
+  h2 { color:#d4af37; border-bottom:1px solid #4a3f14; padding-bottom:6px; margin-top:36px; letter-spacing:1px; }
+  h3 { color:#e8e2d0; margin-bottom:4px; }
+  a { color:#8b7cf0; }
+  .means { border-left:3px solid #8b7cf0; padding:4px 12px; color:#cfc7ab; background:#0a0a0a; }
+  .rule { border:none; border-top:1px solid #333; margin:28px 0; }
+  footer { text-align:center; color:#9a8f6d; font-size:13px; margin-top:48px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diamond">&#9670;</div>
+  <h1>THE SNI DAILY BRIEF</h1>
+  <div class="org">Shadow Night Intelligence</div>
+  <div class="banner">PUBLICLY DISCLOSED</div>
+  <span class="stamp">Declassified for public release</span>
+  <div class="serial">Tuesday 24 November 2026 &nbsp;|&nbsp; Serial SNI-DB-2026-11-24 &nbsp;|&nbsp; Prepared for the public record</div>
+  <p>Reader, welcome. This is the public edition of the daily cyber brief from Shadow Night Intelligence (SNI). Everything in it is explained in plain words. A <strong>vulnerability</strong> is a mistake in software that lets an attacker do something they should not be able to do, like a lock that opens with the wrong key. A <strong>CVE</strong> is the official catalogue number given to one vulnerability, so everyone is talking about the same mistake. A <strong>patch</strong> is the repair the maker releases. An <strong>exploit</strong> is the tool or trick that uses a vulnerability. A score out of 10, called a CVSS score, measures how serious a vulnerability is: 9 or above is critical.</p>
+
+  <h2>Top 3, must know</h2>
+  <h3>1. Two more exploited flaws join the KEV list, due 26 November</h3>
+  <p>CISA, the United States cyber agency, added two flaws to its Known Exploited Vulnerabilities catalogue on 23 November, both due 26 November with forensic triage, meaning check carefully for intruders before simply patching. The first is the MONAI Label flaw, <strong>CVE-2026-133968</strong>, scored 9.8. MONAI Label is a free medical imaging labelling server; its flaw is a path traversal, where dot dot slash characters, the computer&apos;s way of saying go up one folder, let a writer escape the storage folder and write anywhere on the machine. Its login check is off by default. AI agents found and used this flaw against university servers in September. The second is an N-able MailAssure flaw, <strong>CVE-2026-134624</strong>, scored 9.3. MailAssure, also sold as SpamExperts, filters a company&apos;s email before it arrives. The flaw is a server side request forgery: a component can be tricked into sending network requests to addresses the attacker chooses, like a mailroom clerk who delivers any internal memo to any office if the envelope is formatted correctly. It was found during a breach investigation.</p>
+  <p class="means"><strong>What this means for you:</strong> MONAI Label may have no installable fixed release, so isolation or shutdown is a valid answer. Any use of MailAssure or SpamExperts needs checking before 26 November.</p>
+  <p>Source: <a href="https://securityaffairs.com/203882/hacking/u-s-cisa-adds-n-able-mailassure-and-project-monai-flaws-to-its-known-exploited-vulnerabilities-catalog.html">Security Affairs, CISA adds MailAssure and MONAI flaws to KEV, November 2026</a></p>
+
+  <h3>2. Microsoft Azure API Management Classic: stored API credentials stolen, energy sector link</h3>
+  <p>Azure is Microsoft&apos;s cloud platform. API Management acts as a front desk for APIs, the doors programs use to talk to each other: it checks callers&apos; keys and passes requests through. The Classic tier is the older version. Attackers exploited a flaw in it to steal API credentials customers had stored inside the service. Norway&apos;s national security authority linked the activity to attacks on the energy sector, including Equinor and Skagerak Energi. Microsoft has applied a server side fix, made on Microsoft&apos;s own systems, so no customer patch exists. The customer action is essential and separate: rotate, meaning replace, every credential stored in the service, because a fix stops new theft and does nothing about keys already copied.</p>
+  <p class="means"><strong>What this means for you:</strong> a stolen API key is a working key until its owner replaces it. The fix and the rotation are two separate jobs, and both are required.</p>
+
+  <h3>3. CrowdStrike agrees to buy Zscaler for about 43.9 billion dollars</h3>
+  <p>CrowdStrike, known for the Falcon software that watches computers for attacks, agreed on 23 November to buy Zscaler, the largest name in cloud delivered network security, for about 43.9 billion dollars in stock: 1.135 CrowdStrike shares for each Zscaler share, about 260.41 dollars per share, a 34 percent premium. The deal is expected to close in the second half of 2028, subject to approvals.</p>
+  <p class="means"><strong>What this means for you:</strong> if it closes, the independent choices at the top of the security market shrink by one, and customers of either company should expect product lines to be merged and repriced over the following years.</p>
+  <p>Source: <a href="https://www.reuters.com/legal/transactional/crowdstrike-buy-zscaler-439-billion-2026-11-23/">Reuters, CrowdStrike to buy Zscaler, 23 November 2026</a></p>
+
+  <hr class="rule">
+  <h2>Breaches and incidents</h2>
+  <h3>KEPCO breach, confirmed, 1,520,248 people</h3>
+  <p>KEPCO is South Korea&apos;s national electric power company. It confirmed a breach affecting 1,520,248 people: 650,487 customer records, including bank and card details and ID numbers, and 869,761 users of its supplier relationship system. The breach was detected on 20 November, and South Korea&apos;s privacy regulator opened an investigation on 23 November. Power operations are unaffected: the systems that run the electricity grid were not the systems breached.</p>
+  <p class="means"><strong>What this means for you:</strong> bank details plus card details plus national ID numbers for 650,000 customers is the complete identity theft set in one file, held by a billing system at a national utility.</p>
+  <p>Source: <a href="https://www.securityweek.com/1-5-million-impacted-by-data-breach-at-south-korean-electric-company-kepco/">SecurityWeek, 1.5 million impacted by KEPCO data breach, November 2026</a></p>
+
+  <h2>Critical vulnerabilities and patching</h2>
+  <p>The 23 November deadline has now passed for the four flaws added on 20 November: VMware vCenter CVE-2026-123890, Cisco Expressway CVE-2026-76466, Apache Roller CVE-2026-129448, and SAP NetWeaver CVE-2025-42884. Anything in that set still unpatched is overdue. Today, 24 November, is also the deadline for Outlook <strong>CVE-2026-124194</strong>, where opening a crafted message file could leak a user&apos;s network password hash to an attacker&apos;s server, and Chrome <strong>CVE-2026-125350</strong>, fixed in Chrome 157 and Edge 157.0.4341.46, which only takes effect after the browser restarts.</p>
+
+  <hr class="rule">
+  <h2>Watch / act</h2>
+  <p>1. By 26 November 2026, with forensic triage: MONAI Label CVE-2026-133968 and N-able MailAssure CVE-2026-134624.</p>
+  <p>2. Azure API Management Classic: rotate every stored credential. Microsoft&apos;s server side fix does not unsteal a copied key.</p>
+  <p>3. Overdue as of today: vCenter, Expressway, Roller, and SAP NetWeaver. Due today: Outlook and Chrome; a browser fix counts only after a restart.</p>
+  <p>4. Ahead: Puppet CVE-2026-115731 due 1 December, LiteLLM CVE-2026-40217 due 2 December.</p>
+
+  <footer>
+    <div class="diamond">&#9670;</div>
+    THE SNI DAILY BRIEF is published by Shadow Night Intelligence for the public record. Items marked unverified or single source are labelled in the text. Verify before you act on anything that touches a system you own.<br>
+    <a href="index.html">Daily Brief archive</a>
+  </footer>
+</div>
+</body>
+</html>

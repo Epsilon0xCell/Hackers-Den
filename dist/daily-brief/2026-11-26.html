@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE SNI DAILY BRIEF, Thursday 26 November 2026, PUBLICLY DISCLOSED</title>
+<style>
+  body { background:#000; color:#e8e2d0; font-family: Georgia, 'Times New Roman', serif; margin:0; padding:24px 16px 64px; line-height:1.65; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .diamond { color:#8b7cf0; text-align:center; font-size:28px; letter-spacing:12px; }
+  h1 { color:#d4af37; text-align:center; letter-spacing:4px; font-size:34px; margin:8px 0 2px; }
+  .org { text-align:center; color:#bfa75a; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+  .banner { border:2px solid #d4af37; color:#d4af37; text-align:center; padding:10px; margin:20px 0 6px; letter-spacing:6px; font-weight:bold; font-size:18px; }
+  .stamp { display:block; width:fit-content; margin:14px auto 4px; border:3px double #8b7cf0; color:#8b7cf0; padding:6px 18px; letter-spacing:4px; font-weight:bold; transform:rotate(-3deg); text-transform:uppercase; }
+  .serial { text-align:center; color:#9a8f6d; font-size:13px; margin-bottom:28px; }
+  h2 { color:#d4af37; border-bottom:1px solid #4a3f14; padding-bottom:6px; margin-top:36px; letter-spacing:1px; }
+  h3 { color:#e8e2d0; margin-bottom:4px; }
+  a { color:#8b7cf0; }
+  .means { border-left:3px solid #8b7cf0; padding:4px 12px; color:#cfc7ab; background:#0a0a0a; }
+  .rule { border:none; border-top:1px solid #333; margin:28px 0; }
+  footer { text-align:center; color:#9a8f6d; font-size:13px; margin-top:48px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diamond">&#9670;</div>
+  <h1>THE SNI DAILY BRIEF</h1>
+  <div class="org">Shadow Night Intelligence</div>
+  <div class="banner">PUBLICLY DISCLOSED</div>
+  <span class="stamp">Declassified for public release</span>
+  <div class="serial">Thursday 26 November 2026 &nbsp;|&nbsp; Serial SNI-DB-2026-11-26 &nbsp;|&nbsp; Prepared for the public record</div>
+  <p>Reader, welcome. This is the public edition of the daily cyber brief from Shadow Night Intelligence (SNI). Everything in it is explained in plain words. A <strong>vulnerability</strong> is a mistake in software that lets an attacker do something they should not be able to do, like a lock that opens with the wrong key. A <strong>CVE</strong> is the official catalogue number given to one vulnerability, so everyone is talking about the same mistake. A <strong>patch</strong> is the repair the maker releases. An <strong>exploit</strong> is the tool or trick that uses a vulnerability. A score out of 10, called a CVSS score, measures how serious a vulnerability is: 9 or above is critical.</p>
+
+  <h2>Top 3, must know</h2>
+  <h3>1. CISA adds 10 already used flaws to the must fix list, most due 28 November</h3>
+  <p>CISA added 10 flaws to its Known Exploited Vulnerabilities catalogue on 25 November. Five are in Mitel MiCollab, a business phone and video meeting system, including <strong>CVE-2026-133323</strong>, scored 10.0, which lets an attacker run commands on the system. One is in Vates Xen Orchestra, <strong>CVE-2026-133469</strong>, scored 9.8, a tool used to manage virtual servers: the flaw lets a stranger skip the sign in check entirely, like a hotel front desk accepting a blank key card as proof you are the manager. One is in HPE Juniper Session Smart routers, <strong>CVE-2026-103406</strong>, scored 9.8, letting a remote attacker run commands as root, the all powerful account. Three are in Danfoss AK-SM 800A controllers, the boxes that run shop refrigeration, heating and lighting, including <strong>CVE-2023-25915</strong>, scored 9.9. Federal agencies must fix eight of the ten by 28 November 2026, and the other two, CVE-2025-41450 and CVE-2026-133311, by 9 December 2026.</p>
+  <p class="means"><strong>What this means for you:</strong> CISA only adds a flaw when attackers are already using it. If you run any of these four product families, that product moves to the front of the patch queue today.</p>
+  <p>Sources: <a href="https://thehackernews.com/2026/11/hackers-exploit-10-vulnerabilities.html">The Hacker News</a> and <a href="https://securityaffairs.com/204014/hacking/u-s-cisa-adds-hpe-juniper-session-smart-conductor-and-session-smart-router-flaw-to-its-known-exploited-vulnerabilities-catalog.html">Security Affairs</a></p>
+
+  <h3>2. The Drupal installer patch left a gap, and attackers are already using it</h3>
+  <p>Drupal fixed a critical installer flaw, <strong>CVE-2026-132165</strong>, nicknamed Fail2Install, on 18 November. Attackers hit live sites from 19 November, and CISA listed it on 24 November with a deadline of 27 November. On 25 November Drupal disclosed a follow on flaw, <strong>CVE-2026-136716</strong>, and said plainly that the first fix did not protect every site: sites left in an unusual or half finished setup state can still be taken over, and this second flaw is also being exploited. Sites that had locked their installer page are not vulnerable to it. New fixed versions are Drupal 11.4.14, 11.3.23 and 10.6.23, and existing sites must also run the update step called update.php, because installing the new files alone does not repair the leftover state. An attacker who got in before the patch could have created their own admin account, and the patch does not remove that account.</p>
+  <p class="means"><strong>What this means for you:</strong> any Drupal site needs the new version, the update step, and a check for unknown admin accounts and changes made since 19 November.</p>
+  <p>Source: <a href="https://www.securityweek.com/drupal-installer-patch-left-a-gap-attackers-are-already-exploiting/">SecurityWeek, Drupal installer patch left a gap, November 2026</a></p>
+
+  <h3>3. 1Password confirms a breach; vault passwords were not taken</h3>
+  <p>1Password makes an app where people store all their passwords in an encrypted vault, a locked box only the owner can open. The company disclosed on 25 November that it detected an intrusion on 19 November. Step by step: an attacker took over one employee&apos;s corporate GitHub account, GitHub being where programmers store code. With it, the attacker read private code, placed malicious code into behind the scenes services, and downloaded records about a subset of customers: names, email addresses, account and user ID numbers, account creation and last sign in times, and tokens, secret links sent by email for invitations, setup and recovery. The attacker also reached the automated build and ship pipeline, which held internal infrastructure secrets. 1Password says it disabled the account, cancelled the stolen token, restored clean services, and rotated the internal secrets. It says customer vault contents and the keys that protect them were at no point available to the attacker, and a small number of affected users were individually notified. The main remaining risk is phishing, fake messages made believable by real names and addresses.</p>
+  <p class="means"><strong>What this means for you:</strong> treat any unexpected 1Password invitation or recovery email as suspect, go to the app yourself instead of clicking the link, and never give a six digit code to anyone who asks. No vault password change is required by this disclosure.</p>
+  <p>Sources: <a href="https://www.bleepingcomputer.com/news/security/1password-customer-data-stolen-after-employee-github-account-breach/">BleepingComputer, 1Password customer data stolen, November 2026</a> and <a href="https://techcrunch.com/2026/11/25/1password-said-hackers-broke-into-its-internal-systems-but-customer-passwords-are-safe/">TechCrunch, 25 November 2026</a></p>
+
+  <hr class="rule">
+  <h2>Critical vulnerabilities and patching, other items</h2>
+  <h3>Palo Alto firewalls: Fragnesia fixes released 24 and 25 November</h3>
+  <p>A firewall is the guard box between a network and the internet. The flaw nicknamed Fragnesia, <strong>CVE-2026-46300</strong>, sits in the Linux kernel and lets someone with a small foothold raise themselves to root. Attackers chained it, used one flaw after another like steps on a ladder, with the two PHP flaws nicknamed PHP2Shell, reaching full control of about 25 devices in the reported campaign, including a United States government affiliated organisation, and planting webshells, hidden back door pages. Fixed versions are listed in advisory PAN-SA-2026-0015 for PAN-OS 10.2, 11.1, 11.2, 12.1 and 12.2. Never leave a management page reachable from the public internet.</p>
+  <p>Source: <a href="https://www.securityweek.com/palo-alto-networks-patches-fragnesia-flaw-used-to-root-firewalls/">SecurityWeek, Palo Alto patches Fragnesia, November 2026</a></p>
+  <h3>NGINX: HTTP/2 flaw reportedly exploited, flagged as reported, not KEV confirmed</h3>
+  <p>NGINX is very common free software that serves websites. The Cyber Security Agency of Singapore reported on 26 November that a flaw in its HTTP/2 handling, <strong>CVE-2026-123007</strong>, is reportedly being actively exploited, with public example attack code available since disclosure on 18 November. HTTP/2 uses a counter to limit how much data may be sent, like a water meter; the flaw pushes that counter past its limit until the maths wraps around and the server writes data into the wrong place in memory. Only servers with HTTP/2 switched on are affected. Fixes: NGINX Open Source 1.30.7 or 1.31.9, NGINX Plus 37.0.8.1 or 37.3.0.1. This flaw is not on the KEV list as of the 25 November catalogue.</p>
+
+  <h2>Threat actors and campaigns</h2>
+  <h3>Fake job tests carrying malware</h3>
+  <p>Researchers at Socket found 13 malicious NuGet packages, NuGet being the parts warehouse for Microsoft .NET programmers, used in fake take home job assessments. The malware runs when the test project is built or run on the victim&apos;s own computer. It is a poisoned job application form: the harm happens because you did the normal, expected thing and opened the work you were sent. Open any coding test from an unverified sender only inside a throwaway isolated environment, never on your main work machine.</p>
+
+  <h2>AI and offensive security</h2>
+  <h3>Italy and Switzerland warn that AI agents are carrying out real attacks</h3>
+  <p>An AI agent is a program that can plan and act in steps on its own, like a tireless junior attacker who can scan, try a door, read the error, and choose the next move. Italy&apos;s national incident response team reported large scale campaigns in which autonomous agents found and exploited flaws and wrong settings on internet exposed systems, sometimes compromising many systems within hours, and named four frameworks: ARTEX, CyberStrikeAI, DeepSeek Harness Red Team, and PentAGI. Switzerland&apos;s National Cyber Security Centre said on 24 November it had received its first reports of AI agent attacks, that operators of critical infrastructure, essential services like power, water and transport, in at least two sectors were affected, and that in every case known to it the attack succeeded. Both agencies give the same plain defence: patch critical flaws on internet facing systems within 24 hours, require a second proof of identity at sign in, expose fewer systems, give each account only the access it needs, and switch off unused remote management pages.</p>
+  <p class="means"><strong>What this means for you:</strong> the agents are winning on old, known flaws and weak passwords, only faster than a human attacker would. The lesson is speed, not exotic technology.</p>
+
+  <hr class="rule">
+  <h2>Watch / act</h2>
+  <p>1. Today, 26 November 2026, is the deadline for MONAI Label CVE-2026-133968 and N-able MailAssure CVE-2026-134624, both with forensic triage.</p>
+  <p>2. By tomorrow, 27 November 2026: Drupal sites on 11.4.14, 11.3.23 or 10.6.23 with update.php run, plus a check for unknown admin accounts created since 19 November.</p>
+  <p>3. By Saturday 28 November 2026: patch the eight KEV items due that day if you run Mitel MiCollab, Vates Xen Orchestra, HPE Juniper Session Smart, or the affected Danfoss controllers. The remaining two are due 9 December 2026.</p>
+  <p>4. Today: patch Palo Alto PAN-OS for Fragnesia if any management page is internet facing, and patch NGINX with HTTP/2 on to 1.30.7 or 1.31.9.</p>
+  <p>5. Hex.pm account holders: change your password and reset two factor. Treat unexpected 1Password emails as phishing.</p>
+
+  <footer>
+    <div class="diamond">&#9670;</div>
+    THE SNI DAILY BRIEF is published by Shadow Night Intelligence for the public record. Items marked unverified or single source are labelled in the text. Verify before you act on anything that touches a system you own.<br>
+    <a href="index.html">Daily Brief archive</a>
+  </footer>
+</div>
+</body>
+</html>

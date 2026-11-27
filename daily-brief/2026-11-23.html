@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE SNI DAILY BRIEF, Monday 23 November 2026, PUBLICLY DISCLOSED</title>
+<style>
+  body { background:#000; color:#e8e2d0; font-family: Georgia, 'Times New Roman', serif; margin:0; padding:24px 16px 64px; line-height:1.65; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .diamond { color:#8b7cf0; text-align:center; font-size:28px; letter-spacing:12px; }
+  h1 { color:#d4af37; text-align:center; letter-spacing:4px; font-size:34px; margin:8px 0 2px; }
+  .org { text-align:center; color:#bfa75a; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+  .banner { border:2px solid #d4af37; color:#d4af37; text-align:center; padding:10px; margin:20px 0 6px; letter-spacing:6px; font-weight:bold; font-size:18px; }
+  .stamp { display:block; width:fit-content; margin:14px auto 4px; border:3px double #8b7cf0; color:#8b7cf0; padding:6px 18px; letter-spacing:4px; font-weight:bold; transform:rotate(-3deg); text-transform:uppercase; }
+  .serial { text-align:center; color:#9a8f6d; font-size:13px; margin-bottom:28px; }
+  h2 { color:#d4af37; border-bottom:1px solid #4a3f14; padding-bottom:6px; margin-top:36px; letter-spacing:1px; }
+  h3 { color:#e8e2d0; margin-bottom:4px; }
+  a { color:#8b7cf0; }
+  .means { border-left:3px solid #8b7cf0; padding:4px 12px; color:#cfc7ab; background:#0a0a0a; }
+  .rule { border:none; border-top:1px solid #333; margin:28px 0; }
+  footer { text-align:center; color:#9a8f6d; font-size:13px; margin-top:48px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diamond">&#9670;</div>
+  <h1>THE SNI DAILY BRIEF</h1>
+  <div class="org">Shadow Night Intelligence</div>
+  <div class="banner">PUBLICLY DISCLOSED</div>
+  <span class="stamp">Declassified for public release</span>
+  <div class="serial">Monday 23 November 2026 &nbsp;|&nbsp; Serial SNI-DB-2026-11-23 &nbsp;|&nbsp; Prepared for the public record</div>
+  <p>Reader, welcome. This is the public edition of the daily cyber brief from Shadow Night Intelligence (SNI). Everything in it is explained in plain words. A <strong>vulnerability</strong> is a mistake in software that lets an attacker do something they should not be able to do, like a lock that opens with the wrong key. A <strong>CVE</strong> is the official catalogue number given to one vulnerability, so everyone is talking about the same mistake. A <strong>patch</strong> is the repair the maker releases. An <strong>exploit</strong> is the tool or trick that uses a vulnerability. A score out of 10, called a CVSS score, measures how serious a vulnerability is: 9 or above is critical.</p>
+
+  <h2>Top 3, must know</h2>
+  <h3>1. Today is the fixing deadline for four flaws attackers are already using</h3>
+  <p>The United States cyber agency, CISA, keeps a list called the Known Exploited Vulnerabilities catalogue, the KEV for short: flaws with proof that criminals are already using them, each with a federal fixing deadline. Four deadlines land today, 23 November 2026: VMware vCenter <strong>CVE-2026-123890</strong> (9.8, a login bypass in the control room for virtual servers, used since September by the China linked group Armory Castle; fixed in vCenter 9.1.1.0200, 9.0.2.0200 and 8.0 U3m, and anyone patching must also check logs back to September), Cisco Expressway <strong>CVE-2026-76466</strong> (9.8, hard coded credentials; fix X15.5.20), Apache Roller <strong>CVE-2026-129448</strong> (9.8; fix Roller 6.1.6 or later), and SAP NetWeaver <strong>CVE-2025-42884</strong> (6.5; fix SAP Note 3660969). After today, unpatched means overdue against a confirmed exploited flaw.</p>
+  <p class="means"><strong>What this means for you:</strong> if you run any of these four products, patch today. For vCenter, patching without the September log check is half the job.</p>
+
+  <h3>2. OpenRouter removes three AI providers after researchers prove months of prompt theft</h3>
+  <p>When you send a prompt, the text you type to an AI model, a company somewhere runs a model on its computers and sends back the answer. That running is called inference. OpenRouter is a router: one doorway in front of many models and many hosting companies. Zero Data Retention, shortened to ZDR, is a promise attached to a request: process this, answer it, store nothing. The security company Dragos, led by HD Moore, sent about two million prompts between July and November seeded with canary credentials: fake secrets planted in exactly one place, like marked banknotes, so any use of one proves that place leaked. Dragos found attackers stealing request data from inside three hosting providers, none of which knew until the researchers told them. The earliest breach began in mid July, and some stolen requests were flagged Zero Data Retention. On 22 November OpenRouter removed three providers from its platform, stripped 125 endpoints of Zero Data Retention eligibility, and notified potentially affected customers. OpenRouter says there was no breach of OpenRouter itself. One caution: the three breached providers and the three removed providers have not been confirmed to be the same three. Provider Phala says requests to one model that reached it through OpenRouter between 21 October and 8 November should be treated as exposed, and every secret inside them rotated, meaning replaced with a fresh one. Provider Together AI disclosed a different failure: prompt samples kept for testing were downloaded by an unauthorized party after an AI coding agent accidentally committed a credential for the private store into a public one; the samples came from requests in June and July.</p>
+  <p class="means"><strong>What this means for you:</strong> a privacy promise binds only the first company you hand your words to. Never put a real secret inside an AI prompt sent through a router, and rotate any credential that travelled in a prompt through Phala in that October window or Together AI in June and July.</p>
+  <p>Source: <a href="https://thehackernews.com/2026/11/openrouter-drops-3-providers-after.html">The Hacker News, OpenRouter drops 3 providers, November 2026</a></p>
+
+  <h3>3. GL.iNet: attackers used the maker&apos;s own cloud to install malware on routers</h3>
+  <p>GL.iNet makes popular travel routers and Comet KVM devices. A KVM lets you control a distant computer&apos;s keyboard, screen and mouse as if you were sitting at it. GoodCloud is GL.iNet&apos;s remote management service. The company says an unauthorized party exploited a vulnerability in GoodCloud to install malicious software on some customer routers and KVM devices. GL.iNet identified and blocked the flaw on 20 November, but the cloud side fix does not remove malware already on devices, so owners must install the security firmware released on 22 November for their exact model. The flaw has no CVE number. Researchers at RemoteToHome Consulting verified a root level reverse shell, a hidden connection giving full control, on one router; their analysis says the shell arrived through the GoodCloud client software on the router, which ran values from a cloud message as root without checking them. The vendor has not confirmed that finding. The same investigation found an unrelated older backdoor on 49 managed routers, installed between September 2025 and May 2026 by an unknown route. GL.iNet has not said how many devices were infected.</p>
+  <p class="means"><strong>What this means for you:</strong> install the security firmware for your exact model even if the device looks clean, and check any computer attached to a GL.iNet KVM. Remote management on any network device is either off, or it is the most sensitive door on the device.</p>
+  <p>Source: <a href="http://thehackernews.com/2026/11/hackers-exploited-glinet-cloud-flaw-to.html">The Hacker News, GL.iNet GoodCloud flaw exploited, November 2026</a></p>
+
+  <hr class="rule">
+  <h2>Breaches and incidents</h2>
+  <h3>Microsoft Entra Connect Health: tenant data read by attackers, fixed 19 November</h3>
+  <p>Microsoft Entra is Microsoft&apos;s identity service, the system that manages who may sign in to a company&apos;s Microsoft cloud. Connect Health monitors the health of a company&apos;s on premises identity equipment. A tenant is one customer&apos;s separate space in the service. Microsoft told administrators that a vulnerability in the Connect Health API, the doorway other programs use to ask the service questions, was introduced on 23 July and discovered on 9 November. Attackers used it to read administrator email addresses and tenant configuration information. Microsoft deployed a server side fix on 19 November, so no customer update is required, and concluded on 20 November that unauthorized read only access had occurred. Microsoft says it found no unauthorized configuration changes, and has not disclosed how many organizations were affected or who was responsible.</p>
+  <p class="means"><strong>What this means for you:</strong> the data taken is a targeting list, not a set of keys. Organizations that received the notice should expect well aimed phishing, fake messages designed to steal logins, at their administrators.</p>
+  <p>Source: <a href="https://www.bleepingcomputer.com/news/security/microsoft-entra-connect-health-flaw-exploited-to-steal-tenant-data/">BleepingComputer, Microsoft Entra Connect Health flaw exploited, November 2026</a></p>
+
+  <h3>Rackspace Spot: intruder acted as legitimate users on 17 November</h3>
+  <p>Rackspace is a cloud hosting company; Spot rents its spare computing capacity. Kubernetes is the widely used system for running containerised applications across many machines. According to the customer notice reported by BleepingComputer, an intruder used leaked credentials on 17 November, in a window of roughly 00:20 to 22:00 UTC, to act as legitimate users inside some customer organizations. The access could create application units, read stored secrets, list machines and storage, and reach access tokens. Affected customers were told to reissue tokens, generate fresh access files, rotate credentials stored in cluster Secrets, and review logs of outside services those credentials could reach. Rackspace has not publicly said how many customers were affected.</p>
+  <p class="means"><strong>What this means for you:</strong> leaked credentials plus a management platform equals the whole estate, because the platform holds everyone else&apos;s keys. The notice&apos;s response list is the correct template for any platform compromise.</p>
+
+  <h3>Cleverbridge: card data breach detected 4 November, notifications 20 November</h3>
+  <p>Cleverbridge handles checkout and billing for software firms, meaning it processes other companies&apos; customers&apos; card payments. It detected a breach on 4 November and began notifying affected people on 20 November. Card data is the most sensitive category in today&apos;s brief, because card numbers can be used directly for fraud until the cards are replaced.</p>
+  <p class="means"><strong>What this means for you:</strong> anyone notified by Cleverbridge should treat the notice as real, watch the affected card closely, and follow the issuer&apos;s replacement guidance.</p>
+
+  <hr class="rule">
+  <h2>Watch / act</h2>
+  <p>1. Today, 23 November 2026: the four KEV deadlines above. Patch now; for vCenter, include the September log check.</p>
+  <p>2. GL.iNet owners: install the security firmware for your exact model, and check computers attached to GL.iNet KVM devices.</p>
+  <p>3. AI prompts: rotate any secret that travelled in a prompt through Phala between 21 October and 8 November, or in Together AI samples from June and July. No real secrets inside prompts sent through any router.</p>
+  <p>4. Rackspace Spot customers: reissue tokens, regenerate access files, rotate every credential stored in cluster Secrets.</p>
+  <p>5. Tomorrow, 24 November 2026: Outlook CVE-2026-124194 and Chrome CVE-2026-125350 deadlines. Puppet CVE-2026-115731 is due 1 December and LiteLLM CVE-2026-40217 on 2 December.</p>
+
+  <footer>
+    <div class="diamond">&#9670;</div>
+    THE SNI DAILY BRIEF is published by Shadow Night Intelligence for the public record. Items marked unverified or single source are labelled in the text. Verify before you act on anything that touches a system you own.<br>
+    <a href="index.html">Daily Brief archive</a>
+  </footer>
+</div>
+</body>
+</html>
