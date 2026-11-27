@@ -84,6 +84,17 @@ if [ ! -f "dist/service-worker.js" ] && [ -f "$SW_PRESERVE" ]; then
 fi
 rm -f "$SW_PRESERVE"
 
+# Restore the SNI Daily Brief section. The brief pages live in the
+# repo at daily-brief/, outside dist/, for the same reason the theme
+# lives in matrix-theme-backup/: the JAR above regenerates dist/ and
+# would wipe anything that exists only there. Copy the committed
+# brief source back in after every generation.
+if [ -d "daily-brief" ]; then
+  mkdir -p dist/daily-brief
+  cp -f daily-brief/*.html dist/daily-brief/
+  echo "[+] SNI Daily Brief section restored into dist/daily-brief/"
+fi
+
 # Create necessary directories
 mkdir -p dist/static/js dist/static/img
 

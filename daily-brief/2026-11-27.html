@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE SNI DAILY BRIEF, 27 November 2026, PUBLICLY DISCLOSED</title>
+<style>
+  body { background:#000; color:#e8e2d0; font-family: Georgia, 'Times New Roman', serif; margin:0; padding:24px 16px 64px; line-height:1.65; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .diamond { color:#8b7cf0; text-align:center; font-size:28px; letter-spacing:12px; }
+  h1 { color:#d4af37; text-align:center; letter-spacing:4px; font-size:34px; margin:8px 0 2px; }
+  .org { text-align:center; color:#bfa75a; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+  .banner { border:2px solid #d4af37; color:#d4af37; text-align:center; padding:10px; margin:20px 0 6px; letter-spacing:6px; font-weight:bold; font-size:18px; }
+  .serial { text-align:center; color:#9a8f6d; font-size:13px; margin-bottom:28px; }
+  h2 { color:#d4af37; border-bottom:1px solid #4a3f14; padding-bottom:6px; margin-top:36px; letter-spacing:1px; }
+  h3 { color:#e8e2d0; margin-bottom:4px; }
+  a { color:#8b7cf0; }
+  .means { border-left:3px solid #8b7cf0; padding:4px 12px; color:#cfc7ab; background:#0a0a0a; }
+  .rule { border:none; border-top:1px solid #333; margin:28px 0; }
+  footer { text-align:center; color:#9a8f6d; font-size:13px; margin-top:48px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diamond">&#9670;</div>
+  <h1>THE SNI DAILY BRIEF</h1>
+  <div class="org">Shadow Night Intelligence</div>
+  <div class="banner">PUBLICLY DISCLOSED</div>
+  <div class="serial">Friday 27 November 2026 &nbsp;|&nbsp; Serial SNI-DB-2026-11-27 &nbsp;|&nbsp; Prepared for the public record</div>
+
+  <p>Reader, welcome. This is the public edition of the daily cyber brief from Shadow Night Intelligence (SNI). Everything in it is explained in plain words. A few terms first, because they appear all through the brief. A <strong>vulnerability</strong> is a mistake in software that lets an attacker do something they should not be able to do, like a lock that opens with the wrong key. A <strong>CVE</strong> is the official catalogue number given to one vulnerability, so everyone is talking about the same mistake. A <strong>patch</strong> is the repair the maker releases. An <strong>exploit</strong> is the tool or trick that uses a vulnerability. A score out of 10, called a CVSS score, measures how serious a vulnerability is: 9 or above is critical.</p>
+
+  <h2>Top 3, must know</h2>
+
+  <h3>1. NFS2ROOT: a 12 year old flaw can hand full control of a Linux server to a stranger, no password needed</h3>
+  <p>Linux is the free operating system that runs most of the world&apos;s servers. Inside it sits a file sharing service called NFS, which lets one computer use files stored on another. Researchers at OpenSec and France&apos;s ANSSI agency found a mistake in that service, catalogue number <strong>CVE-2026-99362</strong>, scored <strong>9.8 out of 10</strong>. It has been sitting there since 2014. In plain steps: the service keeps a small notebook page for each visitor&apos;s last answer. A visitor can ask for a notebook page of size zero, then trick the service into writing a full answer onto that empty page. The extra writing spills onto the computer&apos;s most sensitive memory, the part that runs the whole machine, and the attacker can steer what happens next. OpenSec filmed an unauthenticated visitor, someone with no account and no password, ending up with a root shell, meaning total control of the server, using nothing but the file sharing port, number 2049. Think of a hotel front desk that copies your request onto a sticky note with no space on it, so the ink runs onto the master key card underneath.</p>
+  <p>There are <strong>no reports of criminals using this yet</strong>, and the attackers&apos; tool is not public. The repair exists: fixed kernel versions include 6.12.117, 6.18.61, 6.6.163, 6.1.193, 5.15.226, 5.10.275 and 7.3.2. Some Linux distributions had not yet shipped the fixed packages on 26 November, so check your own distribution&apos;s update. If you cannot patch today, only let trusted computers reach port 2049, or turn the NFS server off if you do not use it, and restart the machine after updating so the fixed system actually loads.</p>
+  <p class="means"><strong>What this means for you:</strong> if you run a Linux server that shares files over a network, this is your first job today. A stranger needs no password, only network reach.</p>
+  <p>Source: <a href="https://www.bleepingcomputer.com/news/security/new-nfs2root-linux-flaw-can-let-attackers-gain-root-privileges/">BleepingComputer, NFS2ROOT report, 27 November 2026</a></p>
+
+  <h3>2. SAP confirms a security incident; reports say stolen employee tokens were used to copy and change source code</h3>
+  <p>SAP is one of the largest business software companies in the world; its programs run the finance, staff and supply records of huge companies. SAP has <strong>confirmed</strong> it found suspicious activity in its computer systems and took urgent steps to protect customers. That confirmation is the solid part. The detail comes from the German magazine Der Spiegel, citing people inside SAP, and is <strong>not confirmed by SAP</strong>: attackers allegedly stole employee access tokens, which are like digital pass keys, and used them to copy and alter SAP&apos;s source code, the human readable instructions its software is built from, on GitHub, the site where the code is stored. Reports also say SAP restricted GitHub access, paused its automatic build systems and replaced its code signing keys, the stamps that prove software really came from SAP. SAP says its investigation so far shows <strong>no evidence that customer business data was accessed</strong>. Why it matters: if altered code ever reached real software releases, every customer installing it could be affected at once. That is called a supply chain attack, poisoning the well instead of robbing each house. There is no public proof that happened here.</p>
+  <p class="means"><strong>What this means for you:</strong> if your organisation uses SAP software, watch for SAP&apos;s own follow up notices and be ready to verify updates carefully. No customer action has been announced.</p>
+  <p>Sources: <a href="https://www.bleepingcomputer.com/news/security/sap-confirms-security-incident-after-suspicious-github-activity/">BleepingComputer, SAP confirms security incident, 27 November 2026</a> and <a href="https://securityaffairs.com/204121/data-breach/sap-security-incident-stolen-tokens-raise-supply-chain-concerns.html">Security Affairs, 27 November 2026</a></p>
+
+  <h3>3. Deadlines land today and tomorrow on flaws attackers are already using</h3>
+  <p>The United States cyber agency, CISA, keeps a list called the Known Exploited Vulnerabilities catalogue, the KEV for short: flaws with proof that criminals are already using them. Two dates matter right now. The Drupal flaw <strong>CVE-2026-132165</strong> has a federal fixing deadline of <strong>today, 27 November 2026</strong>. Drupal is a popular free system for building websites. This flaw lets attackers reinstall a live site through its setup page and take it over. Its follow on flaw, <strong>CVE-2026-136716</strong>, covers sites the first repair left in an unfinished install state; fix it with Drupal 11.4.14, 11.3.23 or 10.6.23. Then, <strong>tomorrow, 28 November 2026</strong>, eight of the ten flaws CISA added on 25 November fall due: five in Mitel MiCollab (office meeting and calling software; the worst, <strong>CVE-2026-133323</strong>, scores a perfect 10.0 and lets an attacker run commands with no login), one in HPE Juniper networking gear (<strong>CVE-2026-103406</strong>), one in Vates Xen Orchestra (<strong>CVE-2026-133469</strong>, scored 9.8, lets an attacker skip the login and act as the boss account), and Danfoss refrigeration controllers. The remaining two are due 9 December 2026. Federal agencies must meet these dates by law; everyone else should treat them as the honest urgency marker.</p>
+  <p class="means"><strong>What this means for you:</strong> if you run a Drupal website, patch today. If you run any of the other named products, this weekend is the deadline, not next month.</p>
+  <p>Source: <a href="https://cybersecuritynews.com/cisa-adds-10-flaws-to-kev/">Cybersecurity News, CISA adds 10 flaws to KEV, reporting CISA&apos;s 25 November 2026 additions</a></p>
+
+  <hr class="rule">
+
+  <h2>1. Critical vulnerabilities and patching</h2>
+
+  <h3>Microsoft fixes a crash its own November update caused on Windows Server 2025</h3>
+  <p>Microsoft released an emergency repair, numbered <strong>KB5138318</strong>, after its November security update (KB5131077) made some Windows Server 2025 machines crash with a blue screen error, code 0x139, when a certain kind of internet address route (an IPv6 route, a direction for reaching other computers) expired on servers using a setting called Router Advertisement. The fix installs itself through Windows Update on enrolled servers and, unusually, needs no restart. This is a reliability fix, not a security hole, but a server that crashes on a timer is a server that stops serving.</p>
+  <p>Source: <a href="https://www.bleepingcomputer.com/news/microsoft/new-out-of-band-oob-emergency-hotpatch-fixes-windows-server-2025-crashes/">BleepingComputer, Microsoft emergency hotpatch, November 2026</a></p>
+
+  <h3>Trailer brakes that any nearby stranger could squeeze: Elecbrakes Bluetooth flaws</h3>
+  <p>Detailed research published this week covers three flaws in Elecbrakes trailer brake controllers (models EB2, VM1 and ELBC 2000), the boxes that apply a trailer&apos;s brakes. Two flaws score <strong>9.6 out of 10</strong>: <strong>CVE-2026-96805</strong>, the brake controls accepted commands over Bluetooth, the short range wireless link phones use, from any device nearby with no pairing and no password; and <strong>CVE-2026-125273</strong>, commands could be recorded and replayed because they carried no freshness check. A third, <strong>CVE-2026-124281</strong> (6.1), covers a weak software update path. In plain terms, a person within about 100 metres with a phone could squeeze or release someone else&apos;s trailer brakes. Four data bytes were enough. Firmware fixes exist for EB2 (version 3.0.4.4.3) and VM1 (1.3.4.2.1) and install through the app; the older ELBC 2000 has no fix yet, and its maker advises keeping your phone or remote connected while it is in use. CISA and the researchers report no known real world misuse, damage or injury.</p>
+  <p>Source: <a href="https://www.securityweek.com/elecbrakes-bluetooth-vulnerabilities-expose-trailers-to-forced-braking/">SecurityWeek, Elecbrakes braking controller vulnerabilities</a></p>
+
+  <h2>2. Breaches and incidents</h2>
+
+  <h3>Backloggd game tracking site urges every user to change their password</h3>
+  <p>Backloggd, a site where over a million people log the video games they play, disclosed on 25 November that an attacker used a bug to reach its internal admin tools. The attacker could see usernames, email addresses, password hashes and sign in IP addresses. A hash is a password scrambled one way into a fingerprint; it cannot simply be read back, but weak or common passwords can be guessed from it by trying millions of candidates. No payment, ID or financial data was taken; the site does not store it. The site was taken offline, the bug fixed, everyone logged out, and the attacker&apos;s changes are being undone. If you use Backloggd, change that password, and change it anywhere you reused the same one.</p>
+  <p>Source: <a href="https://www.engadget.com/2329256/backloggd-breach-november-2026-password-reset/">Engadget, Backloggd urges users to change passwords after a breach</a></p>
+
+  <h3>Still developing from yesterday: the 1Password breach</h3>
+  <p>Password manager company 1Password disclosed on 25 November that an attacker who took over an employee&apos;s GitHub account pushed malicious code into its back end systems and stole customer names, emails and account details. The company states the vaults, where customers&apos; actual passwords live, and their encryption keys were <strong>not</strong> accessed. No password reset is required; the practical risk is convincing fake 1Password emails, called phishing, so treat unexpected 1Password messages with suspicion.</p>
+  <p>Source: BleepingComputer report of 25 November 2026, carried in yesterday&apos;s SNI Daily Brief.</p>
+
+  <h2>3. Threat actors and campaigns</h2>
+  <p>No new named campaign broke in the last 24 hours beyond the SAP incident above, whose attacker is unknown and unattributed. Two standing warnings from this week remain live: a Black Friday phishing campaign that tricks people into typing a device sign in code into Microsoft&apos;s real login page, handing the attacker their Microsoft 365 account (only ever type a device code that you started yourself), and reporting that the China linked group Salt Typhoon is using an AI attack tool called ARTEX. Both are single thread reporting at this stage and are flagged as such.</p>
+
+  <h2>4. AI and offensive security</h2>
+  <p>Two threads, both flagged unverified. First, Der Spiegel&apos;s sources say the SAP attackers may have used AI agents; SAP has not confirmed any AI role. Second, the Elecbrakes researchers state openly that they used an AI coding assistant to map the brake controller&apos;s Bluetooth controls, a clean public example of AI speeding up honest vulnerability research. Italy&apos;s and Switzerland&apos;s national cyber agencies also warned this week about AI assisted attacks on critical infrastructure, meaning the power, water and transport systems everyone depends on; Switzerland says organisations in at least two such sectors were affected.</p>
+
+  <h2>5. Policy, enforcement and industry</h2>
+  <p>The United States Treasury&apos;s FinCEN bureau, which collects financial crime reports, took systems offline this week after a cyber incident and extended filing deadlines for affected institutions (reported by SecurityWeek, developing). CISA&apos;s fixing deadlines in the Top 3 item are the other hard dates in this window: today for the Drupal flaw, tomorrow for eight more.</p>
+
+  <hr class="rule">
+
+  <h2>Watch / act</h2>
+  <p>1. Linux servers running NFS file sharing: install your distribution&apos;s fixed kernel for CVE-2026-99362 (9.8) and restart, or shut port 2049 to untrusted networks today.</p>
+  <p>2. Drupal sites: patch now. CVE-2026-132165 deadline is today, 27 November 2026; CVE-2026-136716 is fixed in Drupal 11.4.14, 11.3.23 and 10.6.23.</p>
+  <p>3. Mitel MiCollab, HPE Juniper Session Smart, Vates Xen Orchestra and Danfoss AK-SM users: the KEV deadline for eight flaws is tomorrow, 28 November 2026; the last two are due 9 December 2026.</p>
+  <p>4. Windows Server 2025 on the hotpatch track: confirm emergency fix KB5138318 has installed.</p>
+  <p>5. Elecbrakes EB2 and VM1 owners: update firmware in the app. ELBC 2000 owners: no fix yet; keep your phone or remote connected while towing.</p>
+  <p>6. Backloggd users: change your password there and anywhere you reused it.</p>
+  <p>7. Everyone: only type a Microsoft device sign in code that you started yourself, and treat surprise 1Password emails as suspect.</p>
+
+  <footer>
+    <div class="diamond">&#9670;</div>
+    THE SNI DAILY BRIEF is published by Shadow Night Intelligence for the public record. Items marked unverified or single source are labelled in the text. Verify before you act on anything that touches a system you own.
+  </footer>
+</div>
+</body>
+</html>
