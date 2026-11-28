@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE SNI DAILY BRIEF, Saturday 28 November 2026, PUBLICLY DISCLOSED</title>
+<style>
+  body { background:#000; color:#e8e2d0; font-family: Georgia, 'Times New Roman', serif; margin:0; padding:24px 16px 64px; line-height:1.65; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .diamond { color:#8b7cf0; text-align:center; font-size:28px; letter-spacing:12px; }
+  h1 { color:#d4af37; text-align:center; letter-spacing:4px; font-size:34px; margin:8px 0 2px; }
+  .org { text-align:center; color:#bfa75a; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+  .banner { border:2px solid #d4af37; color:#d4af37; text-align:center; padding:10px; margin:20px 0 6px; letter-spacing:6px; font-weight:bold; font-size:18px; }
+  .stamp { display:block; width:fit-content; margin:14px auto 4px; border:3px double #8b7cf0; color:#8b7cf0; padding:6px 18px; letter-spacing:4px; font-weight:bold; transform:rotate(-3deg); text-transform:uppercase; }
+  .serial { text-align:center; color:#9a8f6d; font-size:13px; margin-bottom:28px; }
+  h2 { color:#d4af37; border-bottom:1px solid #4a3f14; padding-bottom:6px; margin-top:36px; letter-spacing:1px; }
+  h3 { color:#e8e2d0; margin-bottom:4px; }
+  a { color:#8b7cf0; }
+  .means { border-left:3px solid #8b7cf0; padding:4px 12px; color:#cfc7ab; background:#0a0a0a; }
+  .rule { border:none; border-top:1px solid #333; margin:28px 0; }
+  footer { text-align:center; color:#9a8f6d; font-size:13px; margin-top:48px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diamond">&#9670;</div>
+  <h1>THE SNI DAILY BRIEF</h1>
+  <div class="org">Shadow Night Intelligence</div>
+  <div class="banner">PUBLICLY DISCLOSED</div>
+  <span class="stamp">Declassified for public release</span>
+  <div class="serial">Saturday 28 November 2026 &nbsp;|&nbsp; Serial SNI-DB-2026-11-28 &nbsp;|&nbsp; Prepared for the public record</div>
+
+  <p>Reader, welcome. This is the public edition of the daily cyber brief from Shadow Night Intelligence (SNI). Everything in it is explained in plain words. A <strong>vulnerability</strong> is a mistake in software that lets an attacker do something they should not be able to do, like a lock that opens with the wrong key. A <strong>CVE</strong> is the official catalogue number given to one vulnerability, so everyone is talking about the same mistake. A <strong>patch</strong> is the repair the maker releases. An <strong>exploit</strong> is the tool or trick that uses a vulnerability. A score out of 10, called a CVSS score, measures how serious a vulnerability is: 9 or above is critical. <strong>Ransomware</strong> is criminal software that locks a victim&apos;s files and demands money to unlock them.</p>
+
+  <h2>Top 3, must know</h2>
+
+  <h3>1. Three more exploited flaws join the KEV list, due 30 November, and today is a deadline day</h3>
+  <p>CISA, the United States cyber agency, keeps the Known Exploited Vulnerabilities catalogue, the KEV for short: flaws with proof that criminals are already using them, each with a fixing deadline for federal agencies that everyone else should treat as their own. On 27 November CISA added three. First, Drupal Core <strong>CVE-2026-136716</strong>, scored 9.8. Drupal is the system many large websites are built on; this flaw concerns a website left in an unfinished setup state, and it can let a stranger with no account take the site over. The Drupal fix is in releases 11.4.14, 11.3.23 and 10.6.23, and the setup page must be locked down. Second and third, two flaws in OSGeo GeoServer, the software that serves maps and location data: <strong>CVE-2026-129243</strong>, a check that can be bypassed so a stranger is treated as allowed, and <strong>CVE-2026-120705</strong>, an XML injection, where specially written data text tricks the server into reading local files or contacting addresses the attacker chooses. GeoServer says these are steps two and three of a five flaw chain that can end in remote code execution, meaning the attacker runs their own commands on the server from far away. Fixed GeoServer versions are 3.0.2, 2.28.6 and 2.27.7. All three new entries are due 30 November 2026. Separately, today, 28 November, is the deadline for the batch CISA added on 25 November, including Vates Xen Orchestra <strong>CVE-2026-133469</strong>, scored 9.8. Xen Orchestra is the control panel for Xen virtual servers, the software that runs many pretend computers on one real machine.</p>
+  <p class="means"><strong>What this means for you:</strong> if you run Drupal, GeoServer or Xen Orchestra, patch now and check for intruders, because these flaws are not theoretical: attackers are already using them.</p>
+  <p>Source: <a href="https://www.cisa.gov/news-events/alerts/2026/11/27/cisa-adds-three-known-exploited-vulnerabilities-catalog">CISA, Adds Three Known Exploited Vulnerabilities to Catalog, 27 November 2026</a></p>
+
+  <h3>2. Cacti: a working exploit is public, there is no patch and no CVE number yet</h3>
+  <p>Cacti is a free tool that watches networks: servers, routers and switches, and draws their performance as graphs. On 26 November a researcher published a proof of concept, a working demonstration program, nicknamed 4HTTP2SHELL, showing that a stranger with no login can run commands on a Cacti server in just four web requests, provided the guest account, a built in visitor login, is switched on. In plain steps: the visitor saves a rigged setting, Cacti stores it without checking it properly, and later a part of Cacti that collects network data reads that stored value and runs it as a command. It is like leaving a note in a suggestion box that the night manager later reads out loud as an order. The test was against Cacti Core 1.2.31; whether older versions are affected is not yet known. The researcher did not warn the Cacti project before publishing. As of 27 November there were no reports of criminals using it in real attacks. Until a patch exists, the defence is to switch the guest account off and limit who can reach the Cacti web page.</p>
+  <p class="means"><strong>What this means for you:</strong> a public working exploit with no patch means the only protection is the workaround. Anyone running Cacti should turn the guest account off today.</p>
+  <p>Source: <a href="https://www.bleepingcomputer.com/news/security/unpatched-cacti-zero-day-with-public-poc-gives-remote-code-execution/">BleepingComputer, Unpatched Cacti zero-day with public PoC, 27 November 2026</a></p>
+
+  <h3>3. Erlang OTP: a 9.1 flaw lets an attacker pretend to be a trusted server</h3>
+  <p>Erlang OTP is a long used building kit for programs that must stay running, common in messaging and telecoms systems. TLS is the padlock system that encrypts a connection and checks the identity card, called a certificate, of the server at the other end. This flaw, <strong>CVE-2026-124286</strong>, scored 9.1 in the CVSS version 4 scale, means an attacker sitting in the middle of a connection can offer no certificate at all and the Erlang program still completes the secure handshake, the opening identity check, and reports the connection as verified. The attacker can then read and change everything sent. It affects TLS 1.2 connections from OTP 17.0 up to the fixed releases: upgrade to OTP 27.3.4.14, 28.5.0.9 or 29.0.3 depending on your line. TLS 1.3, the newer version, is not affected. No exploitation in real attacks has been reported.</p>
+  <p class="means"><strong>What this means for you:</strong> the padlock was showing closed on an open door. Any service built on Erlang that connects outward over TLS 1.2 should be upgraded, or switched to TLS 1.3.</p>
+  <p>Source: <a href="https://cna.erlef.org/cves/CVE-2026-124286.html">Erlang Ecosystem Foundation CNA, CVE-2026-124286</a></p>
+
+  <hr class="rule">
+  <h2>Critical vulnerabilities and patching</h2>
+  <h3>Palo Alto PAN-OS firewalls: flaw chained to reach full control (single research summary, treat with care)</h3>
+  <p>A firewall is the guard at the edge of a network, deciding what traffic may pass. Reporting summarised on 28 November describes attackers chaining a PAN-OS flaw nicknamed Fragnesia, <strong>CVE-2026-46300</strong>, scored 7.8, with a second trick to reach root, the highest level of control, and plant web shells, hidden back doors operated through a web page, on internet facing firewalls, with 25 systems reported compromised. This item rests on a single secondary summary in this run, so it is flagged as not yet verified against the vendor advisory.</p>
+  <p class="means"><strong>What this means for you:</strong> owners of internet facing Palo Alto firewalls should check the vendor advisory directly today rather than waiting for confirmation here.</p>
+
+  <hr class="rule">
+  <h2>Breaches and incidents</h2>
+  <h3>1Password: employee account breach, source code and some account records taken, vaults not accessed</h3>
+  <p>1Password is a password manager: one master vault holding a person&apos;s passwords. The company disclosed on 25 November that an attacker got into an employee&apos;s corporate GitHub account, GitHub being where programmers store code, copied private source code, reached the build and release machinery, and downloaded account records for some customers: names, email addresses and account identifiers, plus, for a small number, tokens from invitation and recovery emails. The company states customer vaults were never accessed, so stored passwords were not taken. It disabled the account, revoked the stolen token, restored clean services and rotated internal credentials. How many customers were affected, how the employee account was first taken, and who did it have not been disclosed.</p>
+  <p class="means"><strong>What this means for you:</strong> the danger that follows is targeted phishing, fake messages that use your real name and email to trick you into handing over a login. Treat any unexpected 1Password recovery or invitation email as suspect and open the app directly instead of following its links.</p>
+
+  <h3>United States government systems: Air Force Cloud One and Treasury FinCEN reporting (developing, poorly scoped)</h3>
+  <p>Secondary reporting on 28 November describes intrusions touching the United States Air Force Cloud One platform, its main cloud computing platform, and the Treasury Department&apos;s FinCEN, the office that collects financial crime reports, which took systems offline and extended some reporting deadlines. The attackers, the scale and any stolen data are not established in the reporting available in this run, so this item is flagged as developing and unverified in its details.</p>
+  <p class="means"><strong>What this means for you:</strong> no action follows from an unscoped report. Watch for an official statement before treating any specific claim as fact.</p>
+
+  <hr class="rule">
+  <h2>Threat actors and campaigns</h2>
+  <h3>The week&apos;s pattern: developer accounts as the way in</h3>
+  <p>The 1Password case above and the SAP incident confirmed earlier this week share one shape: the attacker did not break the product, they took over a developer&apos;s account or token and walked in as staff. A token is a digital key a program presents instead of a password. Guarding staff accounts on code platforms with strong second steps, and treating any token as a key to the whole building, is the lesson both incidents teach.</p>
+  <p class="means"><strong>What this means for you:</strong> for any small team, the code platform account is now as sensitive as the bank account. Protect it the same way.</p>
+
+  <hr class="rule">
+  <h2>AI and offensive security</h2>
+  <h3>Microsoft: attackers are abusing an AI penetration testing framework (reported)</h3>
+  <p>Penetration testing is authorised practice attacking, testing a system&apos;s defences by trying to break in. Reporting summarised on 28 November says Microsoft has documented threat groups, including groups it tracks as Storm-0940, Storm-3358, Onyx Sleet, Pearl Sleet, Crystal Typhoon and Salt Typhoon, abusing ARTEX, a framework that uses AI agents, programs that can plan and carry out steps on their own, to run penetration testing tasks in real attacks. Switzerland&apos;s cyber agency is also reported to have confirmed five AI agent assisted attacks, four of which broke in. These items rest on secondary summaries in this run and are flagged as reported, not independently verified here.</p>
+  <p class="means"><strong>What this means for you:</strong> the same agent tools built to test defences can be pointed at victims. Defence can no longer assume a human attacker&apos;s speed or working hours.</p>
+
+  <hr class="rule">
+  <h2>Policy, enforcement and industry</h2>
+  <p>No major cyber regulation, arrest, takedown or sanctions item was verified in the last 24 hours in this run. The binding deadlines in force are the KEV dates in the Watch / act list below, set by CISA under its Binding Operational Directive 26-04 for federal agencies and recommended to everyone.</p>
+
+  <hr class="rule">
+  <h2>Watch / act</h2>
+  <p>1. Today, 28 November 2026: the 25 November KEV batch deadline, including Xen Orchestra CVE-2026-133469. Anything in that batch still unpatched is overdue after today.</p>
+  <p>2. By 30 November 2026: Drupal CVE-2026-136716 (fix 11.4.14, 11.3.23 or 10.6.23 and secure the installer) and GeoServer CVE-2026-129243 and CVE-2026-120705 (fix 3.0.2, 2.28.6 or 2.27.7).</p>
+  <p>3. Cacti: no patch exists. Switch the guest account off and restrict access to the web interface now.</p>
+  <p>4. Erlang OTP: upgrade to 27.3.4.14, 28.5.0.9 or 29.0.3, or use TLS 1.3, for CVE-2026-124286.</p>
+  <p>5. 1Password users: expect targeted phishing using real names and emails; open the app directly rather than following email links.</p>
+
+  <footer>
+    <div class="diamond">&#9670;</div>
+    THE SNI DAILY BRIEF is published by Shadow Night Intelligence for the public record. Items marked unverified or single source are labelled in the text. Verify before you act on anything that touches a system you own.<br>
+    <a href="index.html">Daily Brief archive</a>
+  </footer>
+</div>
+</body>
+</html>
